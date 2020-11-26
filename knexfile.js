@@ -14,11 +14,11 @@ module.exports = {
     version: '5.7',
     connection: sqlConnection,
     migrations: {
-      directory: './database/migrations',
+      directory: './app/database/migrations',
       tablename: 'knex_migrations'
     },
     seeds:{
-      directory: './database/seeds'
+      directory: './app/database/seeds'
     },
     useNullAsDefault: true
   },
@@ -28,11 +28,11 @@ module.exports = {
     version: '5.7',
     connection: sqlConnection,
     migrations: {
-      directory: './database/migrations',
+      directory: './app/database/migrations',
       tablename: 'knex_migrations'
     },
     seeds:{
-      directory: './database/seeds'
+      directory: './app/database/seeds'
     },
     pool: {
       min: 2,
@@ -46,11 +46,11 @@ module.exports = {
     version: '5.7',
     connection: sqlConnection,
     migrations: {
-      directory: './database/migrations',
+      directory: './app/database/migrations',
       tablename: 'knex_migrations'
     },
     seeds:{
-      directory: './database/seeds'
+      directory: './app/database/seeds'
     },
     pool: {
       min: 2,
