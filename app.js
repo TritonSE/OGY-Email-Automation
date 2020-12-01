@@ -18,6 +18,10 @@ server.on('listening', onListening);
 
 automation.startScript();
 
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
 function onError(error) {
     if (error.syscall !== 'listen') {
         throw error;
