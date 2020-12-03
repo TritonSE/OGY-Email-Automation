@@ -1,4 +1,5 @@
 // Update with your config settings.
+require('dotenv').config();
 
 const sqlConnection = {
   host: process.env.DATABASE_HOST,
