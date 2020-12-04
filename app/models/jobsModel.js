@@ -5,7 +5,7 @@ const db = require('../database/dbConfig.js')
  * scheduled_time is an optional field.
  * 
  * @param {"class_id" : integer, 
- *         "scheduled_time" : DateTime, 
+ *         "scheduled_time" : Date, 
  *         "job_hash" : string} job 
  */
 async function insertJob(job){
