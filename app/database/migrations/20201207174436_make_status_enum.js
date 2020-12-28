@@ -7,11 +7,10 @@ const status = [
 ];
 
 exports.up = function(knex) {
-    return knex.schema.table('jobs', (tbl) => {
-        tbl.string('status');
-    })
-    .then(()=> knex('jobs').insert(status.map((stat) => ({ stat }))));
+    tbl.enum('status', status, {useNative: true, enumName:'status_enum'}).notNullable().index();
 };
+
+
 exports.down = function(knex) {
     return knex.schema.table('jobs', (tbl) => {
        tbl.dropColumn('status'); 
