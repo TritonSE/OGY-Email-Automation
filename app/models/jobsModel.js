@@ -11,12 +11,27 @@ const db = require('../database/dbConfig.js')
 async function insertJob(job){
     try {
         await db('jobs')
-        .insert(job)
+              .insert(job)
     }catch(e){
         console.error("Error: failed to insert job", e)
     }
 }
 
+async function updateJob(newJob){
+    jobUpdates = {
+        "scheduled_time" : newJob.scheduled_time,
+        "job_hash" : newJob.job_hash
+    }
+    try{
+        await db('jobs')
+              .where({"class_id" : newJob.class_id})
+              .update(jobUpdates)
+    }catch(e){
+        console.error("Error: failed to update job", e)
+    }
+}
+
 module.exports = {
-    insertJob
+    insertJob,
+    updateJob
 };
