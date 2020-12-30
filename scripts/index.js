@@ -1,9 +1,9 @@
 const schedule = require('node-schedule');
-const { getJobs15Mins } = require('./parser');
+const parser = require('./parser');
 
 function startScript() {
     schedule.scheduleJob('*/15 * * * *', function () {
-        getJobs15Mins()
+        parser.getJobs15Mins()
     });
 }
 

@@ -1,11 +1,9 @@
-const db = require('../app/database/dbConfig.js');
-var MBO = require('mindbody-sdk');
-const { insertJob, updateJobs } = require('../app/models/jobsModel.js');
-require('dotenv').config();
+const jobsModel = require('../app/models/jobsModel.js');
+const MBO = require('mindbody-sdk');
  
-var mbo = new MBO({
+const mbo = new MBO({
     ApiKey: process.env.API_KEY, // from portal
-    SiteId: -99 //thisis the sandbox account
+    SiteId: parseInt(process.env.SITE_ID) //thisis the sandbox account
 });
 
 /**
@@ -16,24 +14,21 @@ async function processResponse(err,data){
     if (err) {
         console.error("Failed to retrieve information about classes", err);
     } else {
-        classes = data.Classes
-        for (var i = 0; i < classes.length; i++){
-            var session = classes[i]
-            scheduledJobs = await db('jobs')
-                                  .select('*')
-                                  .where({"class_id" : session.Id})
-            numberOfJobs = scheduledJobs.length
-            var job = {
-                "class_id" : session.Id,
-                "scheduled_time" : session.StartDateTime,
+        const classes = data.Classes
+        await classes.map(async function(class_json) {
+            const scheduledJobs = await jobsModel.getJobsById(class_json.Id)
+            const numberOfJobs = scheduledJobs.length
+            const job = {
+                "class_id" : class_json.Id,
+                "scheduled_time" : class_json.StartDateTime,
             }
             if (numberOfJobs === 0){
-                await insertJob(job)
+                await jobsModel.insertJob(job)
             }
             else{
-                await updateJobs(job)
+                await jobsModel.updateJobs(job)
             }
-        }
+        });
     }
 }
 

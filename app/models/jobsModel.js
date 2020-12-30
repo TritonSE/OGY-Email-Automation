@@ -1,5 +1,5 @@
 const db = require('../database/dbConfig.js')
-var crypto = require('crypto')
+const crypto = require('crypto')
 
 /**
  * Inserts a job into the database.
@@ -10,7 +10,10 @@ var crypto = require('crypto')
  */
 async function insertJob(job){
     try {
-        job["job_hash"] = crypto.createHash('sha1').update((new Date()).valueOf().toString() + Math.random().toString()).digest('hex')
+        const dateString = (new Date()).valueOf().toString()
+        const randomString = Math.random().toString()
+        const baseString = dateString + randomString
+        job.job_hash = crypto.createHash('sha1').update(baseString).digest('hex')
         await db('jobs')
               .insert(job)
     } catch(e){
@@ -34,7 +37,23 @@ async function updateJobs(updatedJob){
     }
 }
 
+/**
+ * Returns a list of jobs with a class_id that matches the id passed
+ * in as input.
+ */
+async function getJobsById(id){
+    try {
+        jobs = await db('jobs')
+                     .select('*')
+                     .where({"class_id" : id})
+        return jobs
+    } catch(e){
+        console.error("Error: failed to retrieve jobs", e)
+    }
+}
+
 module.exports = {
     insertJob,
-    updateJobs
+    updateJobs,
+    getJobsById
 };
