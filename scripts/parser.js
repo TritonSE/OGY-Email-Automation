@@ -1,13 +1,17 @@
 const db = require('../app/database/dbConfig.js');
 var MBO = require('mindbody-sdk');
+const { insertJob, updateJobs } = require('../app/models/jobsModel.js');
 require('dotenv').config();
-const { insertJob, updateJob } = require('../app/models/jobsModel.js');
  
 var mbo = new MBO({
     ApiKey: process.env.API_KEY, // from portal
     SiteId: -99 //thisis the sandbox account
 });
 
+/**
+ * Iterates through provided class information from Mindbody API
+ * and updates or inserts jobs to the database
+ */
 async function processResponse(err,data){
     if (err) {
         console.error("Failed to retrieve information about classes", err);
@@ -19,26 +23,23 @@ async function processResponse(err,data){
                                   .select('*')
                                   .where({"class_id" : session.Id})
             numberOfJobs = scheduledJobs.length
-            //replace job hash
             var job = {
                 "class_id" : session.Id,
                 "scheduled_time" : session.StartDateTime,
-                "job_hash" : "a"
             }
             if (numberOfJobs === 0){
                 await insertJob(job)
             }
-            else if (numberOfJobs === 1){
-                await updateJob(job)
-            }
             else{
-                console.error("Error: more than two jobs exist in the table with the same id")
+                await updateJobs(job)
             }
         }
     }
 }
 
-
+/**
+ * Gets scheduled class information from Mindbody API
+ */
 async function getJobs15Mins(){
     await mbo.class.classes({}, processResponse)
 }

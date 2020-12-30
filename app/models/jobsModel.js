@@ -1,37 +1,40 @@
 const db = require('../database/dbConfig.js')
+var crypto = require('crypto')
 
 /**
  * Inserts a job into the database.
  * scheduled_time is an optional field.
  * 
  * @param {"class_id" : integer, 
- *         "scheduled_time" : Date, 
- *         "job_hash" : string} job 
+ *         "scheduled_time" : Date} job 
  */
 async function insertJob(job){
     try {
+        job["job_hash"] = crypto.createHash('sha1').update((new Date()).valueOf().toString() + Math.random().toString()).digest('hex')
         await db('jobs')
               .insert(job)
-    }catch(e){
+    } catch(e){
         console.error("Error: failed to insert job", e)
     }
 }
 
-async function updateJob(newJob){
-    jobUpdates = {
-        "scheduled_time" : newJob.scheduled_time,
-        "job_hash" : newJob.job_hash
-    }
-    try{
+/**
+ * Updates scheduled_time for jobs in the database with the same class_id.
+ * 
+ * @param {"class_id" : integer,
+ *         "scheduled_time" : Date} updatedJob 
+ */
+async function updateJobs(updatedJob){
+    try {
         await db('jobs')
-              .where({"class_id" : newJob.class_id})
-              .update(jobUpdates)
-    }catch(e){
-        console.error("Error: failed to update job", e)
+              .where({"class_id" : updatedJob.class_id})
+              .update({"scheduled_time" : updatedJob.scheduled_time})
+    } catch(e){
+        console.error("Error: failed to update jobs", e)
     }
 }
 
 module.exports = {
     insertJob,
-    updateJob
+    updateJobs
 };
