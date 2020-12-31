@@ -1,23 +1,19 @@
 const db = require('../database/dbConfig.js')
-const crypto = require('crypto')
 
 /**
  * Inserts a job into the database.
  * scheduled_time is an optional field.
  * 
  * @param {"class_id" : integer, 
- *         "scheduled_time" : Date} job 
+ *         "scheduled_time" : Date,
+ *         "job_hash" : string} job 
  */
-async function insertJob(job){
+async function insert(job){
     try {
-        const dateString = (new Date()).valueOf().toString()
-        const randomString = Math.random().toString()
-        const baseString = dateString + randomString
-        job.job_hash = crypto.createHash('sha1').update(baseString).digest('hex')
         await db('jobs')
-              .insert(job)
+              .insert(job);
     } catch(e){
-        console.error("Error: failed to insert job", e)
+        console.error("Error: failed to insert job", e);
     }
 }
 
@@ -27,13 +23,13 @@ async function insertJob(job){
  * @param {"class_id" : integer,
  *         "scheduled_time" : Date} updatedJob 
  */
-async function updateJobs(updatedJob){
+async function update(updatedJob){
     try {
         await db('jobs')
               .where({"class_id" : updatedJob.class_id})
-              .update({"scheduled_time" : updatedJob.scheduled_time})
+              .update({"scheduled_time" : updatedJob.scheduled_time});
     } catch(e){
-        console.error("Error: failed to update jobs", e)
+        console.error("Error: failed to update jobs", e);
     }
 }
 
@@ -41,19 +37,19 @@ async function updateJobs(updatedJob){
  * Returns a list of jobs with a class_id that matches the id passed
  * in as input.
  */
-async function getJobsById(id){
+async function getById(id){
     try {
         jobs = await db('jobs')
                      .select('*')
-                     .where({"class_id" : id})
-        return jobs
+                     .where({"class_id" : id});
+        return jobs;
     } catch(e){
-        console.error("Error: failed to retrieve jobs", e)
+        console.error("Error: failed to retrieve jobs", e);
     }
 }
 
 module.exports = {
-    insertJob,
-    updateJobs,
-    getJobsById
+    insert,
+    update,
+    getById
 };
