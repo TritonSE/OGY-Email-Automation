@@ -3,7 +3,7 @@ const parser = require('./parser');
 
 function startScript() {
     schedule.scheduleJob('*/15 * * * *', function () {
-        parser.getJobs15Mins();
+        parser.getJobsinDay();
     });
 }
 

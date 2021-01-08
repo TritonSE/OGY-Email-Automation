@@ -21,13 +21,14 @@ async function insert(job){
  * Updates scheduled_time for jobs in the database with the same class_id.
  * 
  * @param {"class_id" : integer,
- *         "scheduled_time" : Date} updatedJob 
+ *         "scheduled_time" : Date,
+ *         "status" : enum} updatedJob 
  */
-async function update(updatedJob){
+async function update(filter, updatedJob){
     try {
         await db('jobs')
-              .where({"class_id" : updatedJob.class_id})
-              .update({"scheduled_time" : updatedJob.scheduled_time});
+              .where(filter)
+              .update(updatedJob);
     } catch(e){
         console.error("Error: failed to update jobs", e);
     }
@@ -37,11 +38,11 @@ async function update(updatedJob){
  * Returns a list of jobs with a class_id that matches the id passed
  * in as input.
  */
-async function getById(id){
+async function get(filter){
     try {
         jobs = await db('jobs')
                      .select('*')
-                     .where({"class_id" : id});
+                     .where(filter);
         return jobs;
     } catch(e){
         console.error("Error: failed to retrieve jobs", e);
@@ -51,5 +52,5 @@ async function getById(id){
 module.exports = {
     insert,
     update,
-    getById
+    get
 };
