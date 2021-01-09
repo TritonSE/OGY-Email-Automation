@@ -21,6 +21,8 @@ async function insert(job){
  * Updates scheduled_time for jobs in the database with the same class_id.
  * 
  * @param {"class_id" : integer,
+ *         "status" : enum} filter
+ * @param {"class_id" : integer,
  *         "scheduled_time" : Date,
  *         "status" : enum} updatedJob 
  */
@@ -37,6 +39,9 @@ async function update(filter, updatedJob){
 /**
  * Returns a list of jobs with a class_id that matches the id passed
  * in as input.
+ * 
+ * @param {"class_id" : integer,
+ *         "status" : enum} filter
  */
 async function get(filter){
     try {
