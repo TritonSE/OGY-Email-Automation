@@ -20,9 +20,8 @@ async function processResponse(err,data){
         presentDate.setMinutes(presentDate.getMinutes() + 15);
         const tomorrowDate = new Date();
         tomorrowDate.setDate(tomorrowDate.getDate() + 1);
-        for(let i = 0; i < classes.length; i++) {
-            const class_json = classes[i];
-            const classDate = new Date(class_json.StartDateTime);
+        await classes.map(async function(class_json){
+            const classDate = new Date(class_json.StartDateTime+"Z");
             const filter = {
                 "class_id" : class_json.Id,
                 "status" : "SCHEDULED"
@@ -34,7 +33,8 @@ async function processResponse(err,data){
                 "scheduled_time" : class_json.StartDateTime,
                 "status" : "SCHEDULED"
             };
-            if (classDate >= presentDate && classDate <= tomorrowDate){
+            const isClassDateInRange = classDate >= presentDate && classDate <= tomorrowDate;
+            if (isClassDateInRange){
                 if (jobNotPresent){
                     const dateString = (new Date()).valueOf().toString();
                     const randomString = Math.random().toString();
@@ -46,7 +46,7 @@ async function processResponse(err,data){
                     await jobsModel.update(filter, job);
                 }
             }
-        }
+        });
     }
 }
 
