@@ -7,7 +7,9 @@ const status = [
 ];
 
 exports.up = function(knex) {
-    tbl.enum('status', status, {useNative: true, enumName:'status_enum'}).notNullable().index();
+    return knex.schema.table('jobs', (tbl) => {
+        tbl.enum('status', status, {useNative: true, enumName:'status_enum'}).notNullable().index();
+    });
 };
 
 
