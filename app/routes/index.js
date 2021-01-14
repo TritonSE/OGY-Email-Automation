@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-import generateToken from '../middleware/generateToken.js';
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('index', {title:'OG-YOGA', error: ""});
+});
+
+/* GET login page. */
+router.get('/login', function(req, res, next) {
+    res.render('../views/login');
 });
 
 router.post('/login', async function(req, res, next) {
@@ -19,10 +22,5 @@ router.post('/login', async function(req, res, next) {
         res.json({ token });
     }
 });
-
-async function getTokenInfo(req, res, next) {
-    const authHeader = req.headers['authorization']
-    return authHeader && authHeader.split(' ')[1];
-}
 
 module.exports = router;
