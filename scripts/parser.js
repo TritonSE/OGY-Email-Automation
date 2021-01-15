@@ -11,7 +11,7 @@ const mbo = new MBO({
  * Iterates through provided class information from Mindbody API
  * and updates or inserts jobs to the database
  */
-async function processResponse(err,data){
+async function processClasses(err,data){
     if (err) {
         console.error("Failed to retrieve information about classes", err);
     } else {
@@ -63,9 +63,38 @@ async function getJobsinDay(){
     await mbo.class.classes({
         "StartDateTime" : presentDateString,
         "EndDateTime" : tomorrowDateString
-    }, processResponse);
+    }, processClasses);
+}
+
+/**
+ * Using the class retrieved by API call, adds emails of 
+ * attendees into an array.
+ */
+async function processEnrollments(err, data){
+    if (err){
+        console.error("Failed to retrieve enrollments for the class", err);
+    } else {
+        const clients = data.Classes[0].Clients;
+        const emails = [];
+        await clients.map(async function(client){
+            emails.push(client.Email);
+        });
+    }
+}
+
+/**
+ * Retrieves the emails of enrolled participants in a specified class
+ * 
+ * @param {integer} id The class id for which to get emails of attendees
+ */
+async function getEnrolledEmails(id){
+    const classId = [id];
+    await mbo.class.classes({
+        'ClassIds' : classId 
+    }, processEnrollments);
 }
 
 module.exports = {
-    getJobsinDay
+    getJobsinDay,
+    getEnrolledEmails
 };
