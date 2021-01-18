@@ -11,7 +11,7 @@ const mbo = new MBO({
  * Iterates through provided class information from Mindbody API
  * and updates or inserts jobs to the database
  */
-async function processClasses(err,data){
+async function _parseClasses(err,data){
     if (err) {
         console.error("Failed to retrieve information about classes", err);
     } else {
@@ -63,35 +63,32 @@ async function getJobsinDay(){
     await mbo.class.classes({
         "StartDateTime" : presentDateString,
         "EndDateTime" : tomorrowDateString
-    }, processClasses);
-}
-
-/**
- * Using the class retrieved by API call, adds emails of 
- * attendees into an array.
- */
-async function processEnrollments(err, data){
-    if (err){
-        console.error("Failed to retrieve enrollments for the class", err);
-    } else {
-        const clients = data.Classes[0].Clients;
-        const emails = await Promise.all(clients.map(async function(client) {
-            return client.Email;
-        }));
-        //TODO. Add function that uses client emails as input here.
-    }
+    }, _parseClasses);
 }
 
 /**
  * Retrieves the emails of enrolled participants in a specified class
  * 
  * @param {integer} id The class id for which to get emails of attendees
+ * @param {function} callback Function that processes the provided emails
  */
-async function getEnrolledEmails(id){
+async function getEnrolledEmails(id, callback){
     const classId = [id];
-    await mbo.class.classes({
-        'ClassIds' : classId 
-    }, processEnrollments);
+    await mbo.class.classes({'ClassIds' : classId}, async function(err, data) {
+        if (err){
+            console.error("Failed to retrieve enrollments for the class", err);
+        } else {
+            const clients = data.Classes[0].Clients;
+            const emails = await Promise.all(clients.map(async function(client) {
+                return client.Email;
+            }));
+            try {
+                await callback(emails);
+            } catch(e) {
+                console.error("Email callback function failed", e);
+            }
+        }
+    });
 }
 
 module.exports = {
