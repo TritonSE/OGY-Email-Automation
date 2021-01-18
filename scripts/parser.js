@@ -75,10 +75,10 @@ async function processEnrollments(err, data){
         console.error("Failed to retrieve enrollments for the class", err);
     } else {
         const clients = data.Classes[0].Clients;
-        const emails = [];
-        await clients.map(async function(client){
-            emails.push(client.Email);
-        });
+        const emails = await Promise.all(clients.map(async function(client) {
+            return client.Email;
+        }));
+        //TODO. Add function that uses client emails as input here.
     }
 }
 
