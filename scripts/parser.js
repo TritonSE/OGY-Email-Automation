@@ -82,11 +82,7 @@ async function getEnrolledEmails(id, callback){
             const emails = await Promise.all(clients.map(async function(client) {
                 return client.Email;
             }));
-            try {
-                await callback(emails);
-            } catch(e) {
-                console.error("Email callback function failed", e);
-            }
+            await callback(emails);
         }
     });
 }
