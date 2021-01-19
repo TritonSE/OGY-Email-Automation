@@ -62,8 +62,7 @@ async function dequeue(){
         const toBeSentJobs = await db('jobs')
                                 .where('status', 'SCHEDULED')
                                 .andWhere('scheduled_time', '<', presentDate)
-                                .select('*')
-                                .update('status', 'SUCCESS');
+                                .select('*');
         return toBeSentJobs;
         
     }
