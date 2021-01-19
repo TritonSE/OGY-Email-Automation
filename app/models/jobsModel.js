@@ -1,3 +1,4 @@
+const { scheduledJobs } = require('node-schedule');
 const db = require('../database/dbConfig.js')
 
 /**
@@ -54,8 +55,29 @@ async function get(filter){
     }
 }
 
+async function dequeue(){
+    try{
+        const presentDate = new Date();
+        presentDate.setMinutes(presentDate.getMinutes() + 20);
+        const toBeSentJobs = await db('jobs')
+                                .where('status', 'SCHEDULED')
+                                .andWhere('scheduled_time', '<', presentDate)
+                                .select('*')
+                                .update('status', 'SUCCESS');
+        return toBeSentJobs;
+        
+    }
+    catch(e){
+        console.error("Error: failed to dequeue jobs", e);
+    }
+    
+                           
+}
+
+
 module.exports = {
     insert,
     update,
-    get
+    get,
+    dequeue
 };
