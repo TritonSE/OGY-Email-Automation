@@ -1,4 +1,3 @@
-const { scheduledJobs } = require('node-schedule');
 const db = require('../database/dbConfig.js')
 
 /**
@@ -55,10 +54,17 @@ async function get(filter){
     }
 }
 
-async function dequeue(){
+/**
+ * Returns a list of jobs of the classes that need to be 
+ * dequeued within a specfic time frame
+ *
+ * @param time integer specifying time frame
+ */
+
+async function getByMinutesFromNow(mins){
     try{
         const presentDate = new Date();
-        presentDate.setMinutes(presentDate.getMinutes() + 20);
+        presentDate.setMinutes(presentDate.getMinutes() + mins);
         const toBeSentJobs = await db('jobs')
                                 .where('status', 'SCHEDULED')
                                 .andWhere('scheduled_time', '<', presentDate)
@@ -78,5 +84,5 @@ module.exports = {
     insert,
     update,
     get,
-    dequeue
+    getByMinutesFromNow
 };
