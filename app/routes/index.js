@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+/* router.get('/', function(req, res, next) {
     res.render('index', {title:'OG-YOGA', error: ""});
-});
+}); */
 
 /* GET login page. */
-router.get('/login', function(req, res, next) {
-    res.render('../views/login');
+router.get('/', function(req, res, next) {
+    res.render('login', {title: 'Login'});
 });
 
 router.post('/login', async function(req, res, next) {
