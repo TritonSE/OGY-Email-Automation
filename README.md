@@ -6,7 +6,7 @@
 ### Table of Contents
 **[Project Description](#Project-Description)**<br>
 **[Project Architecture](#Project-Architecture)**<br>
-**[Run Project/Setup Environment](#Run-Project/Setup-Environment)**<br>
+**[Run Project+Setup Environment](#Run-Project+Setup-Environment)**<br>
 **[Database Schema](#Database-Schema)**<br>
 
 ## Project Description
@@ -43,7 +43,7 @@ modifying/tracking scheduled tasks.
 └── README.md
 ```
 
-## Run Project/Setup Environment
+## Run Project+Setup Environment
 ### Setting up repository:
 Dependencies you'll need: 
 - Node 14+
