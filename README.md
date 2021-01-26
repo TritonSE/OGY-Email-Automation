@@ -1,4 +1,4 @@
-# OG Yoga Admin Tool
+# OG Yoga
 ![Node.js](https://img.shields.io/badge/-Node.js-fff?&logo=node.js)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-fff?&logo=JavaScript&logoColor=ddc508)
 ![AWS](https://img.shields.io/badge/-AWS-fff?&logo=Amazon-AWS&logoColor=232F3E)
