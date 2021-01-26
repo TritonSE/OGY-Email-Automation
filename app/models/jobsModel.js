@@ -54,8 +54,35 @@ async function get(filter){
     }
 }
 
+/**
+ * Returns a list of jobs of the classes that need to be 
+ * dequeued within a specfic time frame
+ *
+ * @param time integer specifying time frame
+ */
+
+async function getByMinutesFromNow(mins){
+    try{
+        const presentDate = new Date();
+        presentDate.setMinutes(presentDate.getMinutes() + mins);
+        const toBeSentJobs = await db('jobs')
+                                .where('status', 'SCHEDULED')
+                                .andWhere('scheduled_time', '<', presentDate)
+                                .select('*');
+        return toBeSentJobs;
+        
+    }
+    catch(e){
+        console.error("Error: failed to dequeue jobs", e);
+    }
+    
+                           
+}
+
+
 module.exports = {
     insert,
     update,
-    get
+    get,
+    getByMinutesFromNow
 };
