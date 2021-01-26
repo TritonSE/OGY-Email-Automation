@@ -1,7 +1,6 @@
 const jobsModel = require('../app/models/jobsModel.js');
 const MBO = require('mindbody-sdk');
 const crypto = require('crypto');
-
 const mbo = new MBO({
     ApiKey: process.env.API_KEY, // from portal
     SiteId: parseInt(process.env.SITE_ID) //thisis the sandbox account
