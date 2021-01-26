@@ -12,8 +12,9 @@
 ## Project Description
 
 This project was built to automate the process of sending Class Reminders/Events/Feedback Surveys
-for OG Yoga. This project will implement an automated script that updates
-the MYSQL database with Mindbody API, as well as a administrative user interface for
+for OG Yoga. 
+The application will implement an automated script that updates
+the MYSQL database with Mindbody API utilizing repeating jobs, as well as an administrative user interface for
 modifying/tracking scheduled tasks.
 
 ## Project Architecture
