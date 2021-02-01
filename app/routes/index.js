@@ -14,10 +14,9 @@ router.get('/', function(req, res, next) {
 router.post('/login', async function(req, res, next) {
     if(req.body.secret_key !== process.env.TOKEN_SECRET){
         const error = "wrong secret key";
-        console.log(error);
+        res.render('login', {title: 'Login', data: error});
     }else{
         const token = await generateToken({secret_key: req.body.secret_key, error: ""});
-        console.log("right");
         req.cookie('token', token);
         res.json({ token });
     }
