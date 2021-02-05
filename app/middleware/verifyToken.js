@@ -1,5 +1,3 @@
-const { NotExtended } = require("http-errors");
-
 function verifyToken(request, result, nextOperation) {
     // const userToken = "HI!";
     // get token from cookie
@@ -13,3 +11,5 @@ function verifyToken(request, result, nextOperation) {
         result.redirect('/');
     }
 }
+
+module.exports = verifyToken;
