@@ -8,11 +8,11 @@ const mailer = require('../app/mailer_modules/sendEmail.js');
  * and creating a new node-scheduled job for each class. Then, using the parser script
  * to get the list of emails for each class, send the email to the receivers.
  */
-async function scheduleEmail(targetTime) {
-    const classArr = jobsModel.getByMinutesFromNow(20);
-    classArr.forEach(async function(classInfo) {
-        const id = classInfo.class_id;
-        const job = schedule.scheduleJob(new Date(targetTime), async function () {
+async function scheduleEmail() {
+    schedule.scheduleJob('*/15 * * * *', function() {
+        const classArr = jobsModel.getByMinutesFromNow(15);
+        classArr.forEach(async function(classInfo) {
+            const id = classInfo.class_id;
             parser.getEnrolledEmails(id, mailer.sendEmails);
         });
     });
