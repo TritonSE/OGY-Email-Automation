@@ -16,43 +16,36 @@ const transporter = nodemailer.createTransport({
  * Sends email reminders to attendees given information about the yoga class
  * and an array of the attendees' information. 
  * 
- * @param {Object} classInfo Information about the class.
- * @param {string} classInfo.className Name of the Yoga class.
- * @param {string} classInfo.startTime Time that the class starts.
- * 
- * @param {{firstName : string, lastName : string, email : string}[]} clients Information about the client.
+ * @param {{className : string, startTime : DateTime}} classInfo Information about the class.
+ * @param {string[]} clientEmails Array of the clients' emails.
  */
-async function sendEmails(classInfo, clients){
-    clients.map(async function(client){
-        await ejs.renderFile("../views/email_template.ejs",{
-            firstName : client.firstName,
-            lastName : client.lastName,
-            className : classInfo.className,
-            startTime : classInfo.startTime
-        }, async function(err, data){
-            if (err){
-                console.error(err, "ejs email template failed to render");
-            }
-            else {
-                transporter.sendMail({
-                    from: '"OG YOGA" ' + process.env.SENDER_EMAIL,
-                    to: client.email,
-                    subject: "Upcoming " + classInfo.className + " Class",
-                    html: data
-                }, async function(err, data){
-                    if (err) {
-                        console.error(err, "Email failed");
-                    }
-                    else {
-                        console.log("Email sent");
-                    }
-                });
-            }
-        });
+async function sendReminders(classInfo, clientEmails){
+    await ejs.renderFile("../views/email_template.ejs", {
+        classInfo : classInfo
+    }, async function(err, data){
+        if (err){
+            console.error(err, "ejs email template failed to render");
+        }
+        else {
+            transporter.sendMail({
+                from: '"OG YOGA" ' + process.env.SENDER_EMAIL,
+                to: process.env.SENDER_EMAIL,
+                bcc: clientEmails,
+                subject: TODO,
+                html: data
+            }, async function(err, data){
+                if (err) {
+                    console.error(err, "Email failed");
+                }
+                else {
+                    console.log("Email sent");
+                }
+            });
+        }
     });
 };
 
 
 module.exports = {
-    sendEmails
+    sendReminders
 };
