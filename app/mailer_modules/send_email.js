@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 
 /**
  * Sends email reminders to attendees given information about the yoga class
- * and an array of the attendees' information. 
+ * and an array of the clients' emails. 
  * 
  * @param {{className : string, startTime : DateTime}} classInfo Information about the class.
  * @param {string[]} clientEmails Array of the clients' emails.
