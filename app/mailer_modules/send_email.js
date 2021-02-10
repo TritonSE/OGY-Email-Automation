@@ -31,7 +31,7 @@ async function sendEmails(classInfo, clients){
             startTime : classInfo.startTime
         }, async function(err, data){
             if (err){
-                console.log(err);
+                console.error(err, "ejs email template failed to render");
             }
             else {
                 transporter.sendMail({
@@ -39,9 +39,9 @@ async function sendEmails(classInfo, clients){
                     to: client.email,
                     subject: "Upcoming " + classInfo.className + " Class",
                     html: data
-                }, async function(error, details){
-                    if (error) {
-                        console.err(error, "Email failed");
+                }, async function(err, data){
+                    if (err) {
+                        console.error(err, "Email failed");
                     }
                     else {
                         console.log("Email sent");
