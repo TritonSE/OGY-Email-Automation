@@ -1,10 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
-/* GET home page. */
-/* router.get('/', function(req, res, next) {
-    res.render('index', {title:'OG-YOGA', error: ""});
-}); */
+const tokenUtil = require('../auth/tokenUtil');
 
 /* GET login page. */
 router.get('/', function(req, res, next) {
@@ -16,9 +12,9 @@ router.post('/login', async function(req, res, next) {
         const error = "wrong secret key";
         res.render('login', {title: 'Login', data: error});
     }else{
-        const token = await generateToken({secret_key: req.body.secret_key, error: ""});
+        const token = await tokenUtil.generateToken({secret_key: req.body.secret_key});
         req.cookie('token', token);
-        res.json({ token });
+        res.redirect('/userInterface');
     }
 });
 
