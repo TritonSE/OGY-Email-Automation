@@ -1,0 +1,22 @@
+.dashboard-page{
+    margin: 0;
+    padding: 0;
+    background-color:rgb(250, 250, 250);
+    width:100%;
+    height:100%;
+    overflow: hidden;
+}
+
+.banner{
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.inner-logo{
+    position: relative;
+    margin-top: .4%;
+}
