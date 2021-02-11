@@ -13,7 +13,7 @@ router.post('/login', async function(req, res, next) {
         res.render('login', {title: 'Login', data: error});
     }else{
         const token = await tokenUtil.generateToken({secret_key: req.body.secret_key});
-        req.cookie('token', token);
+        req.cookie('token', token, {expiresIn:'3hr'});
         res.redirect('/userInterface');
     }
 });
