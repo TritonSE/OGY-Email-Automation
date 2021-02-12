@@ -7,20 +7,20 @@ const transporter = nodemailer.createTransport({
     port: 465,
     secure: true,
     auth: {
-        user: process.env.SENDER_EMAIL, 
-        pass: process.env.SENDER_PASSWORD, 
+        user: process.env.SENDER_EMAIL,
+        pass: process.env.SENDER_PASSWORD,
     },
 });
 
 /**
  * Sends email reminders to attendees given information about the yoga class
- * and an array of the clients' emails. 
- * 
+ * and an array of the clients' emails.
+ *
  * @param {{className : string, startTime : DateTime}} classInfo Information about the class.
  * @param {string[]} clientEmails Array of the clients' emails.
  */
 async function sendReminders(classInfo, clientEmails){
-    await ejs.renderFile("../views/email_template.ejs", {
+    await ejs.renderFile("../views/emailTemplates/reminderEmail.ejs", {
         classInfo : classInfo
     }, async function(err, data){
         if (err){
