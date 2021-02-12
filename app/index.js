@@ -30,7 +30,7 @@ server.use(cookieParser());
 server.use(express.static(path.join(__dirname, 'public')));
 
 server.use('/', indexRouter);
-server.use('/userInterfaceRouter', userInterfaceRouter);
+server.use('/userInterface', userInterfaceRouter);
 
 server.use(function(req, res, next) {
     next(createError(404));
