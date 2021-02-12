@@ -56,7 +56,6 @@ async function get(filter){
  *
  * @param time integer specifying time frame
  */
-
 async function getByMinutesFromNow(mins){
     try{
         const presentDate = new Date();
@@ -71,8 +70,6 @@ async function getByMinutesFromNow(mins){
     catch(e){
         console.error("Error: failed to dequeue jobs", e);
     }
-
-
 }
 
 
