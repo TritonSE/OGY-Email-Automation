@@ -32,6 +32,8 @@ modifying/tracking scheduled tasks.
 │   │      ├── error.ejs
 │   │      └── index.ejs
 │   └── index.js
+├── modules
+│   └── mailer.js
 ├── scripts
 │   ├── index.js
 │   └── parser.js
