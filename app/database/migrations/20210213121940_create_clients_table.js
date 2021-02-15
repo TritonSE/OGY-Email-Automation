@@ -1,11 +1,16 @@
 
+const status = [
+    'SEND_EMAILS',
+    'NO_EMAILS'
+];
+
 exports.up = function(knex) {
     return knex.schema.createTable('clients', table => {
         table.integer('job').unsigned().notNullable();
         table.string('first_name');
         table.string('last_name');
-        table.string('email', 320);
-
+        table.text('email');
+        table.enum('status', status, {useNative: true, enumName:'status_enum'}).notNullable().index();
         table.foreign('job').references('id').inTable('jobs');
     });
 };
