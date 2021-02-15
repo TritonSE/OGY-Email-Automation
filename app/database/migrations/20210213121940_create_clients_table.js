@@ -10,7 +10,7 @@ exports.up = function(knex) {
         table.string('first_name');
         table.string('last_name');
         table.text('email');
-        table.enum('status', status, {useNative: true, enumName:'status_enum'}).notNullable().index();
+        table.boolean('is_recipient');
         table.foreign('job').references('id').inTable('jobs');
     });
 };
