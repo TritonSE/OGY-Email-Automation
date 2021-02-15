@@ -22,5 +22,3 @@ async function scheduleEmail() {
 module.exports = {
     scheduleEmail
 };
-
-scheduleEmail();
