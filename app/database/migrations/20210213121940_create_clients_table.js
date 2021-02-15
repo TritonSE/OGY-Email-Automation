@@ -1,9 +1,4 @@
 
-const status = [
-    'SEND_EMAILS',
-    'NO_EMAILS'
-];
-
 exports.up = function(knex) {
     return knex.schema.createTable('clients', table => {
         table.integer('job').unsigned().notNullable();
