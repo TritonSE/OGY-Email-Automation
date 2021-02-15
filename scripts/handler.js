@@ -11,7 +11,7 @@ const mailer = require('../modules/mailer.js');
  */
 async function scheduleEmail() {
     schedule.scheduleJob('*/15 * * * *', async function() {
-        const classArr = jobsModel.getByMinutesFromNow(15);
+        const classArr = await jobsModel.getByMinutesFromNow(15);
         classArr.forEach(async function(classInfo) {
             const id = classInfo.class_id;
             parser.getEnrolledEmails(id, mailer.sendReminders);
