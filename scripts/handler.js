@@ -1,6 +1,6 @@
 const schedule = require('node-schedule');
 const jobsModel = require('../app/models/jobsModel.js');
-const parser = require('parser.js');
+const parser = require('../scripts/parser.js');
 const mailer = require('../modules/mailer.js');
 
 /**
@@ -22,3 +22,5 @@ async function scheduleEmail() {
 module.exports = {
     scheduleEmail
 };
+
+scheduleEmail();
