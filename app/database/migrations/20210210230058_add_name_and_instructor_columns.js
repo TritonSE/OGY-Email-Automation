@@ -1,9 +1,9 @@
 
 exports.up = function(knex) {
     knex.schema.table('jobs', function(table){
-        tbl.string('class_name');
-        tbl.string('instructor_first_name');
-        tbl.string('instructor_last_name');
+        table.string('class_name');
+        table.string('instructor_first_name');
+        table.string('instructor_last_name');
   })
 };
 
