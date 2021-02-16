@@ -1,4 +1,4 @@
-const db = require('../database/dbConfig.js')
+const db = require('../database/dbConfig.js');
 
 /**
  * Inserts a job into the database. scheduled_time is an optional field.
@@ -50,6 +50,16 @@ async function get(filter){
     }
 }
 
+async function getAll(){
+    try {
+        const jobs = await db('jobs')
+            .select('*');
+        return jobs;
+    } catch(e){
+        console.error("Error: failed to retrieve jobs", e);
+    }
+}
+
 /**
  * Returns a list of jobs of the classes that need to be
  * dequeued within a specfic time frame
@@ -77,5 +87,6 @@ module.exports = {
     insert,
     update,
     get,
-    getByMinutesFromNow
+    getByMinutesFromNow,
+    getAll
 };
