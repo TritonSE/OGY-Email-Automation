@@ -1,14 +1,11 @@
 const express = require('express');
 const router = express.Router();
-
-/* GET home page. */
-/* router.get('/', function(req, res, next) {
-    res.render('index', {title:'OG-YOGA', error: ""});
-}); */
+const tokenUtil = require('../auth/tokenUtil');
 
 /* GET login page. */
 router.get('/', function(req, res, next) {
-    res.render('login', {title: 'Login'});
+    const errorMessage = "none";
+    res.render('login', {title: 'Login', errorMessage});
 });
 
 /* GET dashboard page. */
@@ -17,13 +14,13 @@ router.get('/dashboard', function(req, res, next) {
 });
 
 router.post('/login', async function(req, res, next) {
-    if(req.body.secret_key !== process.env.TOKEN_SECRET){
-        const error = "wrong secret key";
-        res.render('login', {title: 'Login', data: error});
+    if(req.body.secret_key !== process.env.LOGIN_SECRET){
+        const errorMessage = "Wrong secret key";
+        res.render('login', {title: 'Login', errorMessage});
     }else{
-        const token = await generateToken({secret_key: req.body.secret_key, error: ""});
-        req.cookie('token', token);
-        res.json({ token });
+        const token = await tokenUtil.generateToken({secret_key: req.body.secret_key});
+        res.cookie('token', token, {expiresIn:'3hr'});
+        res.redirect('/userInterface');
     }
 });
 

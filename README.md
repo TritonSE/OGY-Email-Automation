@@ -5,7 +5,7 @@
 
 ### Table of Contents
 **[Project Description](#Project-Description)**<br>
-**[Project Architecture](#Project-Architecture)**<br>
+**[File Structure](#File-Structure)**<br>
 **[Run Project and Setup Environment](#Run-Project-and-Setup-Environment)**<br>
 **[Database Schema](#Database-Schema)**<br>
 
@@ -17,24 +17,28 @@ The application will implement an automated script that updates
 the MYSQL database with Mindbody API utilizing repeating jobs, as well as an administrative user interface for
 modifying/tracking scheduled tasks.
 
-## Project Architecture
+## File Structure
 ```
 .
 ├── app
 │   ├── database
-│          ├── migrations
-│          └── dbConfig.js
+│   │      ├── migrations
+│   │      └── dbConfig.js
 │   ├── models
-│          └── jobsModel.js
+│   │      └── jobsModel.js
 │   ├── routes
-│          └── index.js
+│   │      └── index.js
 │   ├── views
-│          ├── error.ejs
-│          └── index.ejs
+│   │      ├── error.ejs
+│   │      └── index.ejs
 │   └── index.js
+├── modules
+│   └── mailer.js
 ├── scripts
 │   ├── index.js
 │   └── parser.js
+├── utils
+│   └── getDateByInterval.js
 ├── .env_sample
 ├── .gitignore
 ├── app.js
