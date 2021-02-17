@@ -1,12 +1,12 @@
 
 exports.up = function(knex) {
     return knex.schema.createTable('clients', table => {
-        table.integer('job').unsigned().notNullable();
+        table.increments('id').unique().notNullable();
         table.string('first_name');
         table.string('last_name');
         table.text('email');
         table.boolean('is_recipient').defaultTo(true);
-        table.foreign('job_id').references('id').inTable('jobs');
+        table.integer('job_id').unsigned().references('id').inTable('jobs');
     });
 };
 
