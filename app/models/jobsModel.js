@@ -51,6 +51,20 @@ async function get(filter){
 }
 
 /**
+ * Returns a list of jobs with a class_id 
+ *
+ * @returns {Promise<void>}
+ */
+async function getAll(){
+    try {
+        const jobs = await db('jobs')
+                     .select('*');
+        return jobs;
+    } catch(e){
+        console.error("Error: failed to retrieve jobs", e);
+    }
+}
+/**
  * Returns a list of jobs of the classes that need to be
  * dequeued within a specfic time frame
  *
@@ -80,5 +94,6 @@ module.exports = {
     insert,
     update,
     get,
+    getAll,
     getByMinutesFromNow
 };
