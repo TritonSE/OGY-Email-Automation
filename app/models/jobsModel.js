@@ -50,6 +50,10 @@ async function get(filter){
     }
 }
 
+/**
+ * get all jobs
+ * @returns {Promise<*>}
+ */
 async function getAll(){
     try {
         const jobs = await db('jobs')
@@ -77,7 +81,7 @@ async function getByMinutesFromNow(mins){
         return result;
 
     }
-    catch(e){
+    catch(e) {
         console.error("Error: failed to dequeue jobs", e);
     }
 }
