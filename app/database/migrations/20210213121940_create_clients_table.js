@@ -6,7 +6,7 @@ exports.up = function(knex) {
         table.string('last_name');
         table.text('email');
         table.boolean('is_recipient').defaultTo(true);
-        table.foreign('job').references('id').inTable('jobs');
+        table.foreign('job_id').references('id').inTable('jobs');
     });
 };
 
