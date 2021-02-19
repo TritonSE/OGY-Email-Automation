@@ -1,0 +1,35 @@
+.login-page{
+    background-color:rgb(33, 34, 37);
+}
+
+.logo{
+    height: 300px;
+    width: 250px;
+}
+
+
+.full_window_container{
+    min-height: 100vh;
+    padding-top: 20vh;
+}
+
+.login_bar{
+    height: 50px !important;
+    border-top-left-radius: 30px !important;
+    border-bottom-left-radius: 30px !important;
+    padding-left: 20px !important;
+    font-family: Montserrat;
+    font-style: italic;
+    font-size: 15px !important;
+    color: black !important;
+}
+
+.login_button{
+    border-color: transparent;
+    color: white;
+    background: #A9258A !important;
+    font-size: 2.95vh;
+    height: 50px !important;
+    border-top-right-radius: 30px !important;
+    border-bottom-right-radius: 30px !important;
+}

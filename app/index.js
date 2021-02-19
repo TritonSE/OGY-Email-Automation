@@ -10,6 +10,7 @@ const logger = require('morgan');
 
 
 const indexRouter = require('./routes/index');
+const userInterfaceRouter = require('./routes/userInterface');
 
 const server = express();
 
@@ -29,6 +30,7 @@ server.use(cookieParser());
 server.use(express.static(path.join(__dirname, 'public')));
 
 server.use('/', indexRouter);
+server.use('/userInterface', userInterfaceRouter);
 
 server.use(function(req, res, next) {
     next(createError(404));

@@ -1,17 +1,15 @@
-const db = require('../database/dbConfig.js')
+const db = require('../database/dbConfig.js');
 
 /**
- * Inserts a job into the database.
- * scheduled_time is an optional field.
- * 
- * @param {"class_id" : integer, 
- *         "scheduled_time" : Date,
- *         "job_hash" : string} job 
+ * Inserts a job into the database. scheduled_time is an optional field.
+ *
+ * @param job
+ * @returns {Promise<void>}
  */
 async function insert(job){
     try {
         await db('jobs')
-              .insert(job);
+            .insert(job);
     } catch(e){
         console.error("Error: failed to insert job", e);
     }
@@ -19,12 +17,10 @@ async function insert(job){
 
 /**
  * Updates scheduled_time for jobs in the database with the same class_id.
- * 
- * @param {"class_id" : integer,
- *         "status" : enum} filter
- * @param {"class_id" : integer,
- *         "scheduled_time" : Date,
- *         "status" : enum} updatedJob 
+ *
+ * @param filter
+ * @param updatedJob
+ * @returns {Promise<void>}
  */
 async function update(filter, updatedJob){
     try {
@@ -39,13 +35,13 @@ async function update(filter, updatedJob){
 /**
  * Returns a list of jobs with a class_id that matches the id passed
  * in as input.
- * 
- * @param {"class_id" : integer,
- *         "status" : enum} filter
+ *
+ * @param filter
+ * @returns {Promise<void>}
  */
 async function get(filter){
     try {
-        jobs = await db('jobs')
+        const jobs = await db('jobs')
                      .select('*')
                      .where(filter);
         return jobs;
@@ -55,28 +51,39 @@ async function get(filter){
 }
 
 /**
- * Returns a list of jobs of the classes that need to be 
+ * get all jobs
+ * @returns {Promise<*>}
+ */
+async function getAll(){
+    try {
+        const jobs = await db('jobs')
+            .select('*');
+        return jobs;
+    } catch(e){
+        console.error("Error: failed to retrieve jobs", e);
+    }
+}
+
+/**
+ * Returns a list of jobs of the classes that need to be
  * dequeued within a specfic time frame
  *
  * @param time integer specifying time frame
  */
-
 async function getByMinutesFromNow(mins){
     try{
         const presentDate = new Date();
         presentDate.setMinutes(presentDate.getMinutes() + mins);
-        const toBeSentJobs = await db('jobs')
+        const result = await db('jobs')
                                 .where('status', 'SCHEDULED')
                                 .andWhere('scheduled_time', '<', presentDate)
                                 .select('*');
-        return toBeSentJobs;
-        
+        return result;
+
     }
-    catch(e){
+    catch(e) {
         console.error("Error: failed to dequeue jobs", e);
     }
-    
-                           
 }
 
 
@@ -84,5 +91,6 @@ module.exports = {
     insert,
     update,
     get,
-    getByMinutesFromNow
+    getByMinutesFromNow,
+    getAll
 };

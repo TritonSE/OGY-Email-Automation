@@ -1,10 +1,12 @@
 const jobsModel = require('../app/models/jobsModel.js');
 const MBO = require('mindbody-sdk');
 const crypto = require('crypto');
- 
+
+const getDateByInterval = require('../utils/getDateByInterval');
+
 const mbo = new MBO({
     ApiKey: process.env.API_KEY, // from portal
-    SiteId: parseInt(process.env.SITE_ID) //thisis the sandbox account
+    SiteId: parseInt(process.env.SITE_ID) //this is the sandbox account
 });
 
 /**
@@ -15,70 +17,83 @@ async function _parseClasses(err,data){
     if (err) {
         console.error("Failed to retrieve information about classes", err);
     } else {
-        const classes = data.Classes;
-        const presentDate = new Date();
-        presentDate.setMinutes(presentDate.getMinutes() + 15);
-        const tomorrowDate = new Date();
-        tomorrowDate.setDate(tomorrowDate.getDate() + 1);
-        await classes.map(async function(class_json){
-            const classDate = new Date(class_json.StartDateTime+"Z");
+        const newJobs = await Promise.all(data.Classes.map(async function(classJson){
+
+            // filter for database query
             const filter = {
-                "class_id" : class_json.Id,
-                "status" : "SCHEDULED"
+                class_id : classJson.Id,
+                status: "SCHEDULED"
             };
-            const scheduledJobs = await jobsModel.get(filter);
-            const jobNotPresent = scheduledJobs.length === 0;
+
+            // job json for update or insert
             const job = {
-                "class_id" : class_json.Id,
-                "scheduled_time" : class_json.StartDateTime,
-                "status" : "SCHEDULED"
+                class_id : classJson.Id,
+                scheduled_time : classJson.StartDateTime,
+                status : "SCHEDULED"
             };
-            const isClassDateInRange = classDate >= presentDate && classDate <= tomorrowDate;
-            if (isClassDateInRange){
-                if (jobNotPresent){
-                    const dateString = (new Date()).valueOf().toString();
-                    const randomString = Math.random().toString();
-                    const baseString = dateString + randomString;
-                    job.job_hash = crypto.createHash('sha1').update(baseString).digest('hex');
-                    await jobsModel.insert(job);
-                }
-                else{
-                    await jobsModel.update(filter, job);
-                }
+
+            const scheduledJobs = await jobsModel.get(filter);
+            const isJobPresent = scheduledJobs.length !== 0;
+
+            // if job doesn't exist in the database, return it into the newJobs array
+            if(!isJobPresent) {
+                const dateString = (new Date()).valueOf().toString();
+                const randomString = Math.random().toString();
+                const baseString = dateString + randomString;
+
+                // hash value for the job
+                job.job_hash = crypto.createHash('sha1').update(baseString).digest('hex');
+                return job;
             }
-        });
+
+            // if job already exist, update it
+            await jobsModel.update(filter, job);
+        }));
+
+        // filter out all the undefined in array
+        await jobsModel.insert(newJobs);
     }
 }
 
 /**
  * Gets scheduled class information from Mindbody API
  */
-async function getJobsinDay(){
+async function getJobsInWeek(){
+
+    // set dates for querying range from mindbody api
     const date = new Date();
-    let presentDateString = date.toISOString();
-    presentDateString = presentDateString.substring(0, presentDateString.indexOf("."));
-    date.setDate(date.getDate() + 1);
-    let tomorrowDateString = date.toISOString();
-    tomorrowDateString = tomorrowDateString.substring(0, tomorrowDateString.indexOf("."));
+    let StartDateTime = date.toISOString();
+    StartDateTime = StartDateTime.substring(0, StartDateTime.indexOf("."));
+    const EndDateTime = getDateByInterval(7);
+
     await mbo.class.classes({
-        "StartDateTime" : presentDateString,
-        "EndDateTime" : tomorrowDateString
+        StartDateTime,
+        EndDateTime
     }, _parseClasses);
 }
 
+
 /**
  * Retrieves the emails of enrolled participants in a specified class
- * 
+ *
  * @param {integer} id The class id for which to get emails of attendees
  * @param {function} callback Function that processes the provided emails
  */
-async function getEnrolledEmails(id, callback){
-    const classId = [id];
-    await mbo.class.classes({'ClassIds' : classId}, async function(err, data) {
+async function getEnrolledEmails(ClassIds, callback){
+    const date = new Date();
+    let StartDateTime = date.toISOString();
+    StartDateTime = StartDateTime.substring(0, StartDateTime.indexOf("."));
+    const EndDateTime = getDateByInterval(7);
+
+    await mbo.class.classes({
+        ClassIds,
+        StartDateTime,
+        EndDateTime
+    }, async function(err, data) {
         if (err){
             console.error("Failed to retrieve enrollments for the class", err);
         } else {
-            const clients = data.Classes[0].Clients;
+            const clients = data.Classes[0]?data.Classes[0].Clients:[];
             const emails = await Promise.all(clients.map(async function(client) {
                 return client.Email;
             }));
@@ -88,6 +103,6 @@ async function getEnrolledEmails(id, callback){
 }
 
 module.exports = {
-    getJobsinDay,
+    getJobsInWeek,
     getEnrolledEmails
 };
