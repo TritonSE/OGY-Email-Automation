@@ -31,7 +31,10 @@ async function _parseClasses(err,data){
             const job = {
                 class_id : classJson.Id,
                 scheduled_time : classJson.StartDateTime,
-                status : "SCHEDULED"
+                status : "SCHEDULED",
+                class_name : classJson.ClassDescription.Name,
+                instructor_first_name : classJson.Staff.FirstName,
+                instructor_last_name : classJson.Staff.LastName
             };
             const clients = await Promise.all(classJson.Clients.map(async function(client){
                 const clientEntry = {
