@@ -1,5 +1,5 @@
 const db = require('../database/dbConfig.js');
-const helperFunctions = require('../utils/helperFunctions.js');
+const clientProcessing = require('../../utils/clientProcessing.js');
 
 /**
  * Inserts a job into the database.
@@ -11,22 +11,28 @@ const helperFunctions = require('../utils/helperFunctions.js');
 async function insert(jobs){
     await jobs.forEach(async function(job){
         try{
+            if(job === undefined){
+                return;
+            }
             await db.transaction(async function(trx) {
                 const clients = job.clients;
                 const job_entry = {
                     class_id : job.class_id,
                     scheduled_time : job.scheduled_time,
                     status : job.status,
-                    job_hash : job.job_hash
+                    job_hash : job.job_hash,
+                    class_name : job.class_name,
+                    instructor_first_name : job.instructor_first_name,
+                    instructor_last_name : job.instructor_last_name
                 };
-                return trx
+                return await trx
                     .insert(job_entry, ['id'])
                     .into('jobs')
                     .then(async function(id) {
                         await clients.forEach(async function(client) {
                             client.job_id = id[0];
-                            return trx('clients').insert(clients);
                         });
+                        return await trx('clients').insert(clients);
                     });
             });
         } catch (err) {
@@ -46,26 +52,30 @@ async function insert(jobs){
 async function update(filter, job){
     try {
         const clients = job.clients;
-        clients.sort(helperFunctions.compareEmails);
+        clients.sort(clientProcessing.compareEmails);
         const jobEntry = {
             class_id : job.class_id,
             scheduled_time : job.scheduled_time,
-            status : job.status
+            status : job.status,
+            class_name : job.class_name,
+            instructor_first_name : job.instructor_first_name,
+            instructor_last_name : job.instructor_last_name
         }
-        const jobId = await db('jobs')
+        await db('jobs')
               .where(filter)
-              .update(jobEntry, ['id'])[0];
+              .update(jobEntry);
+        const jobId = (await get(filter))[0].id;
         const storedClients = await db('clients')
                                     .select('email')
                                     .where('job_id', jobId);
-        storedClients.sort(helperFunctions.compareEmails);
-        const clientEdits = await helperFunctions.processClients(clients, storedClients, jobId);
+        storedClients.sort(clientProcessing.compareEmails);
+        const clientEdits = await clientProcessing.processClients(clients, storedClients, jobId);
         const addClients = clientEdits[0], removeEmails = clientEdits[1];
         await db('clients')
             .where('job_id', jobId)
             .andWhere('email', 'in', removeEmails)
             .del();
-        await db('insert')
+        await db('clients')
             .insert(addClients)
     } catch(e){
         console.error("Error: failed to update jobs", e);
