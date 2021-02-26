@@ -1,8 +1,10 @@
 const jobsModel = require('../app/models/jobsModel.js');
 const MBO = require('mindbody-sdk');
 const crypto = require('crypto');
+const helperFunction = require('../util/helperFunction.js');
 
 const getDateByInterval = require('../utils/getDateByInterval');
+const { client } = require('../app/database/dbConfig.js');
 
 const mbo = new MBO({
     ApiKey: process.env.API_KEY, // from portal
@@ -31,7 +33,16 @@ async function _parseClasses(err,data){
                 scheduled_time : classJson.StartDateTime,
                 status : "SCHEDULED"
             };
-
+            const clients = await Promise.all(classJson.Clients.map(async function(client){
+                const clientEntry = {
+                    first_name : client.FirstName,
+                    last_name : client.LastName,
+                    email : client.Email,
+                    is_recipient : client.SendScheduleEmails
+                };
+                return clientEntry;
+            }));
+            job.clients = clients;
             const scheduledJobs = await jobsModel.get(filter);
             const isJobPresent = scheduledJobs.length !== 0;
 
