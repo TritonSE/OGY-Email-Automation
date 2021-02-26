@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <link href="stylesheet/dashboard.css" rel="stylesheet" type="text/css">  
+    <head>
+        <title>
+        </title>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </head>
+    <body class="dashboard_page">
+      <div class="banner">
+      <img src="images/BlackBanner.svg" class="banner">
+        <img src="images/BannerLogo.svg" class="inner_logo" />
+        <a class="sign_out_button">Sign Out</a>
+      </img>
+      </div>
+      <div class="container center-align">
+      <div class="row row1">
+        <div class="col offset-s1">Manage Notifications</div>
+        <div class="col switch offset-s9">
+          <label>
+            Calendar View
+            <input type="checkbox">
+            <span class="lever"></span>
+          </label>
+        </div>
+      </div>
+      <div class="row row2">
+        <a class="col offset-s9 s1.75 add_notification btn-small">+ Add Notification</a>
+      </div>
+      <div class="row row3">
+        <a class="col s1.5 offset-s1 class_reminder btn-small">Class Reminder</a>
+        <a class="col s1.5 feedback_survey btn-small">Feedback Survey</a>
+        <a class="col s1.5 event btn-small">Event</a>
+        <div class="col s1.5 offset-s6">Showing notifications from</div>
+        <div class="input-field col s12">
+          <select>
+            <option value="" disabled selected>Date</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+          </select>
+          <label>Materialize Select</label>
+        </div>      
+        <div>to</div>
+        <div class="input-field col s12">
+          <select>
+            <option value="" disabled selected>Date</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+          </select>
+          <label>Materialize Select</label>
+        </div>
+      </div>
+      </div>
+    </body>
+</html>
