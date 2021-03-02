@@ -25,15 +25,13 @@ async function insert(jobs){
                     instructor_first_name : job.instructor_first_name,
                     instructor_last_name : job.instructor_last_name
                 };
-                return await trx
+                const job_id = await trx
                     .insert(job_entry, ['id'])
-                    .into('jobs')
-                    .then(async function(id) {
-                        await clients.forEach(async function(client) {
-                            client.job_id = id[0];
-                        });
-                        return await trx('clients').insert(clients);
-                    });
+                    .into('jobs');
+                await clients.forEach(async function(client) {
+                    client.job_id = job_id[0];
+                });
+                return await trx('clients').insert(clients);
             });
         } catch (err) {
             console.error(err, 'Failed to insert job and clients.')
