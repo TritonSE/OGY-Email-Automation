@@ -31,7 +31,7 @@ async function insert(jobs){
                 await clients.forEach(async function(client) {
                     client.job_id = job_id[0];
                 });
-                return await trx('clients').insert(clients);
+                await trx('clients').insert(clients);
             });
         } catch (err) {
             console.error(err, 'Failed to insert job and clients.')
