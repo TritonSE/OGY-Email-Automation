@@ -21,3 +21,7 @@ $(document).ready(function() {
         bAutoWidth: false
     });
 });
+
+$(document).ready(function(){
+    $('select').formSelect();
+});
