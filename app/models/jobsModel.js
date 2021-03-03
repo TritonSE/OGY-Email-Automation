@@ -10,11 +10,11 @@ const clientProcessing = require('../../utils/clientProcessing.js');
  */
 async function insert(jobs){
     await jobs.forEach(async function(job){
-        try{
-            if(job === undefined){
-                return;
-            }
-            await db.transaction(async function(trx) {
+        if(job === undefined){
+            return;
+        }
+        await db.transaction(async function(trx) {
+            try {
                 const clients = job.clients;
                 const job_entry = {
                     class_id : job.class_id,
@@ -25,17 +25,22 @@ async function insert(jobs){
                     instructor_first_name : job.instructor_first_name,
                     instructor_last_name : job.instructor_last_name
                 };
-                const job_id = await trx
+                const job_id = await db
                     .insert(job_entry, ['id'])
-                    .into('jobs');
+                    .into('jobs')
+                    .transacting(trx);
                 await clients.forEach(async function(client) {
                     client.job_id = job_id[0];
                 });
-                await trx('clients').insert(clients);
-            });
-        } catch (err) {
-            console.error(err, 'Failed to insert job and clients.')
-        }
+                await db('clients')
+                    .insert(clients)
+                    .transacting(trx);
+                await trx.commit();
+            } catch (err) {
+                console.error(err, 'Failed to insert job and clients.');
+                await trx.rollback();
+            }
+        });
     });
 }
 
