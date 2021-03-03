@@ -50,7 +50,6 @@ async function insert(jobs){
 async function update(filter, job){
     try {
         const clients = job.clients;
-        clients.sort(clientProcessing.compareEmails);
         const jobEntry = {
             class_id : job.class_id,
             scheduled_time : job.scheduled_time,
@@ -66,8 +65,10 @@ async function update(filter, job){
         const storedClients = await db('clients')
                                     .select('email')
                                     .where('job_id', jobId);
-        storedClients.sort(clientProcessing.compareEmails);
-        const clientEdits = await clientProcessing.processClients(clients, storedClients, jobId);
+        const storedClientsEmails = await Promise.all(storedClients.map(async function (client) {
+            return client.email;
+        }));
+        const clientEdits = await clientProcessing.processClients(clients, storedClientsEmails, jobId);
         const addClients = clientEdits[0], removeEmails = clientEdits[1];
         await db('clients')
             .where('job_id', jobId)
