@@ -21,12 +21,14 @@ async function _parseClasses(err,data){
             // filter for database query
             const filter = {
                 class_id : classJson.Id,
+                class_schedule_id : classJson.ClassScheduleId,
                 status: "SCHEDULED"
             };
 
             // job json for update or insert
             const job = {
                 class_id : classJson.Id,
+                class_schedule_id : classJson.ClassScheduleId,
                 scheduled_time : classJson.StartDateTime,
                 status : "SCHEDULED",
                 class_name : classJson.ClassDescription.Name,
