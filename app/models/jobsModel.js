@@ -85,8 +85,8 @@ async function update(filter, job){
                 .transacting(trx);
             await trx.commit();
         } catch(err){
-            await trx.rollback();
             console.error("Error: failed to update jobs", err);
+            await trx.rollback();
         }
     });
 }
