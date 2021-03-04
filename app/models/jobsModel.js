@@ -25,9 +25,8 @@ async function insert(jobs){
                     instructor_first_name : job.instructor_first_name,
                     instructor_last_name : job.instructor_last_name
                 };
-                const job_id = await db
+                const job_id = await db('jobs')
                     .insert(job_entry, ['id'])
-                    .into('jobs')
                     .transacting(trx);
                 await clients.forEach(async function(client) {
                     client.job_id = job_id[0];
@@ -53,37 +52,43 @@ async function insert(jobs){
  * @returns {Promise<void>}
  */
 async function update(filter, job){
-    try {
-        const clients = job.clients;
-        const jobEntry = {
-            class_id : job.class_id,
-            scheduled_time : job.scheduled_time,
-            status : job.status,
-            class_name : job.class_name,
-            instructor_first_name : job.instructor_first_name,
-            instructor_last_name : job.instructor_last_name
+    await db.transaction(async function(trx) {
+        try {
+            const clients = job.clients;
+            const jobEntry = {
+                class_id : job.class_id,
+                scheduled_time : job.scheduled_time,
+                status : job.status,
+                class_name : job.class_name,
+                instructor_first_name : job.instructor_first_name,
+                instructor_last_name : job.instructor_last_name
+            }
+            await db('jobs')
+                  .where(filter)
+                  .update(jobEntry)
+                  .transacting(trx);
+            const jobId = (await get(filter))[0].id;
+            const storedClients = await db('clients')
+                                        .select('email')
+                                        .where('job_id', jobId)
+                                        .transacting(trx);
+            const storedClientsEmails = await Promise.all(storedClients.map(client => client.email));
+            const clientEdits = await clientProcessing.findClientDifference(clients, storedClientsEmails, jobId);
+            const addClients = clientEdits[0], removeEmails = clientEdits[1];
+            await db('clients')
+                .where('job_id', jobId)
+                .andWhere('email', 'in', removeEmails)
+                .del()
+                .transacting(trx);
+            await db('clients')
+                .insert(addClients)
+                .transacting(trx);
+            await trx.commit();
+        } catch(err){
+            await trx.rollback();
+            console.error("Error: failed to update jobs", err);
         }
-        await db('jobs')
-              .where(filter)
-              .update(jobEntry);
-        const jobId = (await get(filter))[0].id;
-        const storedClients = await db('clients')
-                                    .select('email')
-                                    .where('job_id', jobId);
-        const storedClientsEmails = await Promise.all(storedClients.map(async function (client) {
-            return client.email;
-        }));
-        const clientEdits = await clientProcessing.processClients(clients, storedClientsEmails, jobId);
-        const addClients = clientEdits[0], removeEmails = clientEdits[1];
-        await db('clients')
-            .where('job_id', jobId)
-            .andWhere('email', 'in', removeEmails)
-            .del();
-        await db('clients')
-            .insert(addClients)
-    } catch(e){
-        console.error("Error: failed to update jobs", e);
-    }
+    });
 }
 
 /**

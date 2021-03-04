@@ -9,22 +9,14 @@
  * @param {*} storedClientsEmails array of emails of clients from database.
  * @param {*} jobId job_id of the class the clients are attending.
  */
-async function processClients(apiClients, storedClientsEmails, jobId) {
-    const apiClientEmails = await Promise.all(apiClients.map(async function (client) {
-        return client.email;
-    }));
-    const newClients = await apiClients.filter(async function (client) {
-        return !storedClientsEmails.includes(client.email);
-    });
-    await newClients.forEach(async function (client) {
-        client.job_id = jobId;
-    })
-    const emailsToRemove = await storedClientsEmails.filter(async function (email){
-        return !apiClientEmails.includes(email);
-    });
+async function findClientDifference(apiClients, storedClientsEmails, jobId) {
+    const apiClientEmails = await Promise.all(apiClients.map(client => client.email));
+    const newClients = await apiClients.filter(client => !storedClientsEmails.includes(client.email));
+    await newClients.forEach(client => client.job_id = jobId)
+    const emailsToRemove = await storedClientsEmails.filter(email => !apiClientEmails.includes(email));
     return [newClients, emailsToRemove];
 }
 
 module.exports = {
-    processClients
+    findClientDifference
 };
