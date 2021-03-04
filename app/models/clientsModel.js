@@ -5,6 +5,7 @@ const db = require('../database/dbConfig.js');
  * and are email reminder recipients.
  * 
  * @param {*} jobId Id of the job to retrieve clients from
+ * @returns {Promise<void>}
  */
 async function getByJobId(jobId) {
     try {
