@@ -16,8 +16,9 @@ async function insert(jobs){
         await db.transaction(async function(trx) {
             try {
                 const clients = job.clients;
-                const job_entry = {
+                const jobEntry = {
                     class_id : job.class_id,
+                    class_schedule_id : job.class_schedule_id,
                     scheduled_time : job.scheduled_time,
                     status : job.status,
                     job_hash : job.job_hash,
@@ -25,11 +26,11 @@ async function insert(jobs){
                     instructor_first_name : job.instructor_first_name,
                     instructor_last_name : job.instructor_last_name
                 };
-                const job_id = await db('jobs')
-                    .insert(job_entry, ['id'])
+                const jobId = await db('jobs')
+                    .insert(jobEntry, ['id'])
                     .transacting(trx);
                 await clients.forEach(async function(client) {
-                    client.job_id = job_id[0];
+                    client.job_id = jobId[0];
                 });
                 await db('clients')
                     .insert(clients)
@@ -57,6 +58,7 @@ async function update(filter, job){
             const clients = job.clients;
             const jobEntry = {
                 class_id : job.class_id,
+                class_schedule_id : job.class_schedule_id,
                 scheduled_time : job.scheduled_time,
                 status : job.status,
                 class_name : job.class_name,
