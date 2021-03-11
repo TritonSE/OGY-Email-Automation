@@ -19,6 +19,7 @@ async function insert(jobs){
                 const job_entry = {
                     class_id : job.class_id,
                     scheduled_time : job.scheduled_time,
+                    class_end_time : job.class_end_time,
                     status : job.status,
                     job_hash : job.job_hash,
                     class_name : job.class_name,
@@ -58,6 +59,7 @@ async function update(filter, job){
             const jobEntry = {
                 class_id : job.class_id,
                 scheduled_time : job.scheduled_time,
+                class_end_time : job.class_end_time,
                 status : job.status,
                 class_name : job.class_name,
                 instructor_first_name : job.instructor_first_name,
