@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
  * Sends email reminders to attendees given information about the yoga class
  * and an array of the clients' emails.
  *
- * @param {{className : string, startTime : DateTime}} classInfo Information about the class.
+ * @param {{class_name : string, scheduled_time : DateTime}} classInfo Information about the class.
  * @param {string[]} clientEmails Array of the clients' emails.
  */
 async function sendReminders(classInfo, clientEmails){
@@ -32,7 +32,7 @@ async function sendReminders(classInfo, clientEmails){
                 from: '"OG YOGA" ' + process.env.SENDER_EMAIL,
                 to: process.env.SENDER_EMAIL,
                 bcc: clientEmails,
-                subject: '"OG Yoga: Your class" ' + classInfo.className + '"starts in 30 minutes."',
+                subject: 'OG Yoga: Your class ' + classInfo.class_name + 'starts in 30 minutes.',
                 html: data
             }, async function(err, data){
                 if (err) {

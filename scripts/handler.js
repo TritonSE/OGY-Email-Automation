@@ -11,7 +11,7 @@ const mailer = require('../modules/mailer.js');
  * send the email to all clients of each class.
  */
 async function scheduleEmail() {
-    schedule.scheduleJob('*/15 * * * *', async function() {
+    schedule.scheduleJob('*/10 * * * * *', async function() {
         const classArr = await jobsModel.getByMinutesFromNow(30);
         classArr.forEach(async function(classInfo) {
             const id = classInfo.id;
@@ -23,6 +23,8 @@ async function scheduleEmail() {
         });
     });
 }
+
+scheduleEmail();
 
 module.exports = {
     scheduleEmail
