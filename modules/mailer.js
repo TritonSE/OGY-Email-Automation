@@ -32,7 +32,7 @@ async function sendReminders(classInfo, clientEmails){
                 from: '"OG YOGA" ' + process.env.SENDER_EMAIL,
                 to: process.env.SENDER_EMAIL,
                 bcc: clientEmails,
-                subject: "TEST EMAIL",
+                subject: '"OG Yoga: Your class" ' + classInfo.className + '"starts in 30 minutes."',
                 html: data
             }, async function(err, data){
                 if (err) {
