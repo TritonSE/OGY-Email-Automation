@@ -1,4 +1,4 @@
-.dashboard_page{
+.dashboard-page{
     margin: 0;
     padding: 0;
     background-color:rgb(250, 250, 250);
@@ -8,20 +8,20 @@
 }
 
 .container{
-    width: 100% !important;
+    width: 100%;
 }
 
 .inner_logo{
     position: relative;
     height: 50px;
-    background: none !important;
+    background: none;
 }
 
 .sign_out_button{
-    color: white !important;
-    border-radius: 30px !important;
-    text-align: center !important;
-    background: #A9258A !important;
+    color: white;
+    border-radius: 30px;
+    text-align: center;
+    background: #A9258A;
 }
 
 .row1{
@@ -29,7 +29,7 @@
 }
 
 .switch{
-    color: black !important;
+    color: black;
 }
 
 .height{
@@ -37,12 +37,17 @@
 }
 
 .add_notification{
-    color: black !important;
-    border-radius: 30px !important;
-    text-align: center !important;
-    background-color: rgb(255, 205, 8) !important;
+    color: black;
+    border-radius: 30px;
+    text-align: center;
+    background-color: rgb(255, 205, 8);
 }
 
 .label_text{
     margin: 0 10px;
+}
+
+.table-box{
+    width: 100vw;
+    height: 50vh;
 }
