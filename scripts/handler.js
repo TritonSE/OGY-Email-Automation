@@ -1,7 +1,6 @@
 const schedule = require('node-schedule');
-const db = require('../database/dbConfig.js');
+const db = require('../app/database/dbConfig.js');
 const jobsModel = require('../app/models/jobsModel.js');
-const clientsModel = require('../app/models/clientsModel.js');
 const mailer = require('../modules/mailer.js');
 
 /**
@@ -12,23 +11,22 @@ const mailer = require('../modules/mailer.js');
  * send the email to all clients of each class.
  */
 async function scheduleEmail() {
-    schedule.scheduleJob('*/10 * * * * *', async function() {
-        const emails = await db('jobs')
-            .join('clients', 'jobs.id', 'clients.job_id')
-            .where({email});
-        // const classArr = await jobsModel.getByMinutesFromNow(30);
-        // classArr.forEach(async function(classInfo) {
-        //     const id = classInfo.id;
-        //     const clients = await clientsModel.getByJobId(id);
-        //     const emails = await Promise.all(clients.map(async function(client) {
-        //         return client.email;
-        //     }));
-        //     mailer.sendReminders(classInfo, emails);
-        // });
+    schedule.scheduleJob('*/15 * * * *', async function() {
+        const classes = await jobsModel.getByMinutesFromNow(30);
+        classes.forEach(async function(classInfo) {
+            const rows = await db('clients')
+            .join('jobs', 'jobs.id', 'clients.job_id')
+            .select('email')
+            .where('job_id', classInfo.id)
+            .andWhere('is_recipient', true);
+            const emails = await Promise.all(rows.map(async function(client) {
+                return client.email;
+            }));
+            console.log(emails);
+            mailer.sendReminders(classInfo, emails);
+        });
     });
 }
-
-scheduleEmail();
 
 module.exports = {
     scheduleEmail
