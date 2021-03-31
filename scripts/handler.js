@@ -6,9 +6,10 @@ const mailer = require('../modules/mailer.js');
 /**
  * Adds scheduled jobs for sending emails by checking for
  * classes starting in 30 min every 15 min using chron job 
- * and jobsModel script. Loop through each class to get clients
- * and then loop through clients to get their emails. Finally,
- * send the email to all clients of each class.
+ * and jobsModel script. Loop through each class to get 
+ * clients' emails using knex join function. Finally, 
+ * send the email to all clients of each class using the 
+ * mailer script.
  */
 async function scheduleEmail() {
     schedule.scheduleJob('*/15 * * * *', async function() {
