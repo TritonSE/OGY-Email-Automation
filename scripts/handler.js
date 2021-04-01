@@ -16,13 +16,10 @@ async function scheduleEmail() {
         const classes = await jobsModel.getByMinutesFromNow(30);
         classes.forEach(async function(classInfo) {
             const emails = await clientsModel.getEmailByJoinJobs(classInfo.id);
-            console.log(emails);
             mailer.sendReminders(classInfo, emails);
         });
     });
 }
-
-scheduleEmail();
 
 module.exports = {
     scheduleEmail
