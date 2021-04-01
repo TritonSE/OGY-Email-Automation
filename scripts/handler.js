@@ -1,5 +1,5 @@
 const schedule = require('node-schedule');
-const db = require('../app/database/dbConfig.js');
+const clientsModel = require('../app/models/clientsModel.js');
 const jobsModel = require('../app/models/jobsModel.js');
 const mailer = require('../modules/mailer.js');
 
@@ -15,18 +15,14 @@ async function scheduleEmail() {
     schedule.scheduleJob('*/15 * * * *', async function() {
         const classes = await jobsModel.getByMinutesFromNow(30);
         classes.forEach(async function(classInfo) {
-            const rows = await db('clients')
-            .join('jobs', 'jobs.id', 'clients.job_id')
-            .select('email')
-            .where('job_id', classInfo.id)
-            .andWhere('is_recipient', true);
-            const emails = await Promise.all(rows.map(async function(client) {
-                return client.email;
-            }));
+            const emails = await clientsModel.getEmailByJoinJobs(classInfo.id);
+            console.log(emails);
             mailer.sendReminders(classInfo, emails);
         });
     });
 }
+
+scheduleEmail();
 
 module.exports = {
     scheduleEmail
