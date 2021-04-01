@@ -23,7 +23,6 @@ async function scheduleEmail() {
             const emails = await Promise.all(rows.map(async function(client) {
                 return client.email;
             }));
-            console.log(emails);
             mailer.sendReminders(classInfo, emails);
         });
     });
