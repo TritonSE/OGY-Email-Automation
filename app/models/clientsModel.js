@@ -1,23 +1,28 @@
 const db = require('../database/dbConfig.js');
 
 /**
- * Retrieves a list of clients who are attending the class with the specified job id 
- * and are email reminder recipients.
+ * Retrieves the emails of clients who are attending 
+ * a class with the specified job id and are email 
+ * reminder recipients.
  * 
- * @param {*} jobId Id of the job to retrieve clients from
+ * @param {*} classId Id of the job to retrieve client emails from
  * @returns {Promise<void>}
  */
-async function getByJobId(jobId) {
+async function getEmailByJoinJobs(jobId) {
     try {
-        return await db('clients')
-            .select('*')
+        const rows = await db('clients')
+            .join('jobs', 'jobs.id', 'clients.job_id')
+            .select('email')
             .where('job_id', jobId)
             .andWhere('is_recipient', true);
+        return await Promise.all(rows.map(async function(client) {
+            return client.email;
+        }));
     } catch(e){
-        console.error("Error: Failed to retrieve clients by job id.", e);
+        console.error("Error: Failed to retrieve client emails by job id.", e);
     }
 }
 
 module.exports = {
-    getByJobId
+    getEmailByJoinJobs
 }
