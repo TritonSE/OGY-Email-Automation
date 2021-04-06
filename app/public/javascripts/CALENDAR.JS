@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         editable: true,
         dayMaxEvents: true, // when too many events in a day, show the popover
         events: 'https://fullcalendar.io/demo-events.json?overload-day',
-
+        eventColor: '#FFCB8A',
 
         customButtons: {
             addEventButton: {
@@ -34,9 +34,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     } else {
                         alert('Invalid date.');
                     }
+
                 }
+
             }
+
         }
+
         // events: 'https://fullcalendar.io/demo-events.json'
     });
     calendar.render();
