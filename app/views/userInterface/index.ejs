@@ -10,14 +10,20 @@
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <!-- Compiled and minified JavaScript -->
-        <script script-src-elem="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="javascripts/materializejs/materialize.min.js"></script>
 
         <link href="stylesheet/datatable/datatable.min.css" rel="stylesheet">
+        <link href="stylesheet/dashboard.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div class="valign-wrapper container">
-            <div class="row">
-                <div class="col card s12">
+        <header>
+            <%- include('../components/banner.ejs') %>
+        </header>
+        <main>
+            <%- include('../components/headers.ejs') %>
+            <div class="valign-wrapper table-box">
+            <div class="row  table-box">
+                <div class="col card s10 push-s1">
                     <div class="row">
                         <table id="datatable">
                             <thead>
@@ -45,5 +51,6 @@
                 </div>
             </div>
         </div>
+        </main>
     </body>
 </html>

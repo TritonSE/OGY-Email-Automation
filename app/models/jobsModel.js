@@ -127,7 +127,6 @@ async function getAll(){
         console.error("Error: failed to retrieve jobs", e);
     }
 }
-
 /**
  * Returns a list of jobs of the classes that need to be
  * dequeued within a specfic time frame
