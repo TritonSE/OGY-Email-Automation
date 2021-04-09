@@ -8,5 +8,4 @@ router.get('/', async function(req, res, next) {
     const jobs = await jobsModel.getAll();
     res.render('userInterface/index', {title:'userInterface', jobs});
 });
-
 module.exports = router;
