@@ -29,10 +29,9 @@
 }
 
 .text-box{
-    border-radius: 30px !important;
-    border-color: black !important;
-    padding: 0px 10px !important;
     box-shadow: none !important;
+    border-radius: 30px !important;
+    padding: 0px 10px !important;
 }
 
 .height{
@@ -43,8 +42,10 @@
     color: black;
     border-radius: 30px;
     text-align: center;
-    margin-left: 10px !important;
+    margin-left: 5px !important;
     background-color: rgb(255, 205, 8);
+    box-shadow: none !important;
+    padding: 0px 18px !important;
 }
 
 .label_text{
