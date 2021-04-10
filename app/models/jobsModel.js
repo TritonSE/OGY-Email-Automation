@@ -2,6 +2,8 @@ const db = require('../database/dbConfig.js');
 
 const clientProcessing = require('../../utils/clientProcessing.js');
 
+const convert = require('../../utils/convert');
+
 /**
  * Inserts a job into the database.
  * Adds clients who are attending the class.
@@ -120,8 +122,9 @@ async function get(filter){
  */
 async function getAll(){
     try {
-        const jobs = await db('jobs')
+        const result = await db('jobs')
             .select('*');
+        const jobs = await Promise.all(result.map(job => {return ({...job, scheduled_time:convert(job.scheduled_time)})}));
         return jobs;
     } catch(e){
         console.error("Error: failed to retrieve jobs", e);

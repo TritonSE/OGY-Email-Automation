@@ -28,8 +28,11 @@
     margin-top: 30px;
 }
 
-.switch{
-    color: black;
+.text-box{
+    border-radius: 30px !important;
+    border-color: black !important;
+    padding: 0px 10px !important;
+    box-shadow: none !important;
 }
 
 .height{
@@ -40,6 +43,7 @@
     color: black;
     border-radius: 30px;
     text-align: center;
+    margin-left: 10px !important;
     background-color: rgb(255, 205, 8);
 }
 
@@ -49,5 +53,20 @@
 
 .table-box{
     width: 100vw;
-    height: 50vh;
+}
+
+.table-header{
+    background-color: #212326;
+    color: white;
+}
+
+.table-body-row{
+    background-color: #FFE8CC !important;
+}
+
+#datatable td {
+    font-style: normal;
+    font-weight: 300;
+    line-height: 15px;
+    padding: 21px 4px;
 }
