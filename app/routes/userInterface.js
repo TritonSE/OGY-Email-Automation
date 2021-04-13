@@ -8,4 +8,9 @@ router.get('/', async function(req, res, next) {
     const jobs = await jobsModel.getAll();
     res.render('userInterface/index', {title:'OG Yoga Administration Portal', jobs});
 });
+
+router.get('/calendar', async function(req, res, next) {
+    res.render('userInterface/calendar');
+});
+
 module.exports = router;
