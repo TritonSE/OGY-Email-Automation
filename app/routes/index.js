@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
     res.render('login', {title: 'Login', errorMessage});
 });
 
+
 router.post('/login', async function(req, res, next) {
     if(req.body.secret_key !== process.env.LOGIN_SECRET){
         const errorMessage = "Wrong secret key";

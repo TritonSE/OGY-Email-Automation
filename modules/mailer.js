@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
+const path = require('path');
 require('dotenv').config();
 
 const transporter = nodemailer.createTransport({
@@ -16,11 +17,11 @@ const transporter = nodemailer.createTransport({
  * Sends email reminders to attendees given information about the yoga class
  * and an array of the clients' emails.
  *
- * @param {{className : string, startTime : DateTime}} classInfo Information about the class.
+ * @param {{class_name : string, scheduled_time : DateTime}} classInfo Information about the class.
  * @param {string[]} clientEmails Array of the clients' emails.
  */
 async function sendReminders(classInfo, clientEmails){
-    await ejs.renderFile("../views/emailTemplates/reminderEmail.ejs", {
+    await ejs.renderFile(path.join(__dirname, '..', 'app/views/emailTemplates/reminderEmail.ejs'), {
         classInfo : classInfo
     }, async function(err, data){
         if (err){
@@ -31,7 +32,7 @@ async function sendReminders(classInfo, clientEmails){
                 from: '"OG YOGA" ' + process.env.SENDER_EMAIL,
                 to: process.env.SENDER_EMAIL,
                 bcc: clientEmails,
-                subject: TODO,
+                subject: 'OG Yoga: Your class "' + classInfo.class_name + '" is starting soon!',
                 html: data
             }, async function(err, data){
                 if (err) {
