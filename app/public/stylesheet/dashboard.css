@@ -28,8 +28,10 @@
     margin-top: 30px;
 }
 
-.switch{
-    color: black;
+.text-box{
+    box-shadow: none !important;
+    border-radius: 30px !important;
+    padding: 0px 10px !important;
 }
 
 .height{
@@ -40,7 +42,10 @@
     color: black;
     border-radius: 30px;
     text-align: center;
+    margin-left: 5px !important;
     background-color: rgb(255, 205, 8);
+    box-shadow: none !important;
+    padding: 0px 18px !important;
 }
 
 .label_text{
@@ -49,5 +54,20 @@
 
 .table-box{
     width: 100vw;
-    height: 50vh;
+}
+
+.table-header{
+    background-color: #212326;
+    color: white;
+}
+
+.table-body-row{
+    background-color: #FFE8CC !important;
+}
+
+#datatable td {
+    font-style: normal;
+    font-weight: 300;
+    line-height: 15px;
+    padding: 21px 4px;
 }
