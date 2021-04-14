@@ -1,7 +1,7 @@
 $(document).ready(function() {
     console.log("javascript is running");
     $('#datatable').dataTable({
-        "iDisplayLength": 10,
+        "iDisplayLength": 5,
         "order": [[ 0, "desc" ]],
         "oLanguage": {
             "sStripClasses": "",
