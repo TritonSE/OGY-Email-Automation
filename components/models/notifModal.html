@@ -1,34 +1,158 @@
 <!DOCTYPE html>
-<html>
-  
-<head>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-</head>
-  
-<body>
-    <!-- Modal Trigger -->
-    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+<html> 
+    <head>
+        <script src="../../app/public/javascripts/jquery/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="../../app/public/javascripts/materializejs/materialize.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- Modal Structure -->
-    <div id="modal1" class="modal">
-        <div class="modal-content">
-        <h4>Modal Header</h4>
-        <p>A bunch of text</p>
+        <style>
+            #notif-modal {
+                /* width: 529px; */
+                border-radius: 5px;
+            }
+
+            #notif-modal .modal-header {
+                height: 49px;
+                background-color: #212225;
+            }
+
+            #notif-modal .modal-header p {
+                font-weight: 700;
+                font-style: normal;
+                font-size: 16px;
+                color: #ffffff;
+                margin-top: 0;
+                padding-top: 14px;
+                text-align: center;
+            }
+
+            #notif-modal .modal-header a {
+                font-weight: 700;
+                font-size: 14px;
+                color: #ffffff;
+                position: absolute;
+                top: 0;
+                right: 0;
+                margin: 5px;
+            }
+
+            #notif-modal .modal-content {
+                padding: 16px 32px 24px;
+            }
+
+
+
+            .modal-footer a {
+                font-weight: 700;
+                font-style: normal;
+                font-size: 16px;
+            }
+
+            .modal-footer #cancel-btn {
+                color: #ff0000;
+                border-radius: 30px;
+                border-color: 1px solid #ff0000;
+                position: absolute;
+                left: 30px;
+            }
+
+            .modal-footer #add-btn {
+                color: #000000;
+                border-radius: 30px;
+                background-color: #cbcb2b;
+                position: absolute;
+                right: 30px;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <!-- Modal Trigger -->
+        <a class="waves-effect waves-light btn modal-trigger" href="#notif-modal">Modal</a>
+
+        <!-- Modal Structure -->
+        <div id="notif-modal" class="modal">
+            <div class="modal-header">
+                <p>Edit Notification</p>
+                <a href="#" class="modal-close btn-flat">X</a>
+            </div>
+            <div class="modal-content">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" placeholder="Class Name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" placeholder="Instructor">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">access_time</i>
+                            <input class="timepicker" type="text" placeholder="Start">
+                            <input class="timepicker" type="text" placeholder="End">
+                        </div>
+                        <div class="col s6">
+                            <i class="material-icons prefix">repeat</i>
+                            <select class="browser-default">
+                                <option value="0" selected>Does not repeat</option>
+                                <option value="1">Every month</option>
+                                <option value="2">Every week</option>
+                                <option value="3">Every day</option>
+                                <option value="4">Every M, W, F</option>
+                                <option value="5">Every Tu, Th</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s7">
+                            <i class="material-icons prefix">add_alert</i>
+                            <span>Send a reminder</span>
+                            <select class="browser-default">
+                                <option value="0" selected>1 hr. before</option>
+                                <option value="1">30 min. before</option>
+                                <option value="2">15 min. before</option>
+                            </select>
+                        </div>
+                        <div class="col s5">
+                            <input type="checkbox" class="filled-in" checked="checked" />
+                            <span>Pause notification?</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <i class="material-icons prefix">people</i>
+                            <a>View a full email list</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <select class="browser-default">
+                                <option value="0" selected>Class reminder for [class] with [instructor] on [date, time]</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="message" class="materialize-textarea" placeholder="Enter your message here"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="cancel-btn" class="modal-close waves-effect waves-light btn-flat">Cancel</a>
+                <a href="#" id="add-btn" class="modal-close waves-effect waves-green btn-flat">Add</a>
+            </div>
         </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-red btn-flat">Cancel</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Add</a>
-        </div>
-    </div>
-    <script>
-        $(document).ready(function () {
-            $('.modal').modal();
-        }
-        )
-    </script>
-</body>
-  
+        <script>
+            $(document).ready(function() {
+                $('.modal').modal();
+                $('.timepicker').timepicker();
+                $('select').formSelect();
+            });
+        </script>
+    </body>
 </html>
