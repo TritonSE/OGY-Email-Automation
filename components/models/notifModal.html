@@ -8,7 +8,7 @@
 
         <style>
             #notif-modal {
-                /* width: 529px; */
+                width: 529px;
                 border-radius: 5px;
             }
 
@@ -38,31 +38,33 @@
             }
 
             #notif-modal .modal-content {
-                padding: 16px 32px 24px;
+                padding: 16px 32px 0px;
             }
 
+            #notif-modal .modal-footer {
+                padding: 0px 32px 18px;
+            }
 
-
-            .modal-footer a {
+            #notif-modal .modal-footer a {
                 font-weight: 700;
                 font-style: normal;
                 font-size: 16px;
+                width: 175px;
+                text-align: center;
             }
 
-            .modal-footer #cancel-btn {
+            #notif-modal .modal-footer #cancel-btn {
                 color: #ff0000;
                 border-radius: 30px;
-                border-color: 1px solid #ff0000;
-                position: absolute;
-                left: 30px;
+                border: 1px solid #ff0000;
+                float: left;
             }
 
-            .modal-footer #add-btn {
+            #notif-modal .modal-footer #add-btn {
                 color: #000000;
                 border-radius: 30px;
                 background-color: #cbcb2b;
-                position: absolute;
-                right: 30px;
+                float: right;
             }
         </style>
     </head>
@@ -118,8 +120,10 @@
                             </select>
                         </div>
                         <div class="col s5">
-                            <input type="checkbox" class="filled-in" checked="checked" />
-                            <span>Pause notification?</span>
+                            <label>
+                                <input type="checkbox" class="filled-in" checked="checked" />
+                                <span>Pause notification?</span>
+                            </label>
                         </div>
                     </div>
                     <div class="row">
