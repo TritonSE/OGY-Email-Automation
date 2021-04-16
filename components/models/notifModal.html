@@ -41,6 +41,29 @@
                 padding: 16px 32px 0px;
             }
 
+            #notif-modal .modal-content .row {
+                margin-bottom: 0;
+            }
+            
+            #notif-modal .modal-content select, #notif-modal .modal-content textarea {
+                border: 1px solid #000000;
+                border-radius: 5px;
+            }
+
+            #notif-modal .modal-content textarea:focus {
+                box-shadow: none;
+            }
+
+            #notif-modal .modal-content .materialize-textarea {
+                min-height: 210px;
+                padding: 15px;
+            }
+
+            #notif-modal .modal-content a {
+                color: #000000;
+                text-decoration: underline;
+            }
+
             #notif-modal .modal-footer {
                 padding: 0px 32px 18px;
             }
@@ -93,12 +116,13 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <i class="material-icons prefix">access_time</i>
+                            <i class="material-icons left">access_time</i>
                             <input class="timepicker" type="text" placeholder="Start">
+                            to
                             <input class="timepicker" type="text" placeholder="End">
                         </div>
-                        <div class="col s6">
-                            <i class="material-icons prefix">repeat</i>
+                        <div class="input-field col s12">
+                            <i class="material-icons left">repeat</i>
                             <select class="browser-default">
                                 <option value="0" selected>Does not repeat</option>
                                 <option value="1">Every month</option>
@@ -110,16 +134,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s7">
-                            <i class="material-icons prefix">add_alert</i>
-                            <span>Send a reminder</span>
+                        <div class="input-field col s7">
+                            <i class="material-icons left">notifications</i>
+                            <p>Send a reminder</p>
                             <select class="browser-default">
-                                <option value="0" selected>1 hr. before</option>
+                                <option value="0" selected>15 min. before</option>
                                 <option value="1">30 min. before</option>
-                                <option value="2">15 min. before</option>
+                                <option value="2">1 hr. before</option>
                             </select>
                         </div>
-                        <div class="col s5">
+                        <div class="input-field col s5">
                             <label>
                                 <input type="checkbox" class="filled-in" checked="checked" />
                                 <span>Pause notification?</span>
@@ -127,21 +151,20 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s12">
-                            <i class="material-icons prefix">people</i>
-                            <a>View a full email list</a>
+                        <div class="input-field col s12">
+                            <a><i class="material-icons left">people</i>View a full email list</a>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s12">
+                        <div class="input-field col s12">
                             <select class="browser-default">
-                                <option value="0" selected>Class reminder for [class] with [instructor] on [date, time]</option>
+                                <option value="0" disabled selected>Choose a subject line or start typing...</option>
                             </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <textarea id="message" class="materialize-textarea" placeholder="Enter your message here"></textarea>
+                            <textarea id="message" class="materialize-textarea" placeholder="Enter notification content here..."></textarea>
                         </div>
                     </div>
                 </form>
