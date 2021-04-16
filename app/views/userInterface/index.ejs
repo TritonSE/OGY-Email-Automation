@@ -1,64 +1,68 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title><%= title %></title>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'sha256-WOdSzz11/3cpqOdrm89LBL2UPwEU9EhbDtMy2OciEhs='">
+        <script src="javascripts/jquery/jquery.min.js"></script>
+        <script src="javascripts/datatable/datatable.min.js"></script>
+        <script src="javascripts/uiheader.js"></script>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- Compiled and minified JavaScript -->
+        <script src="javascripts/materializejs/materialize.min.js"></script>
 
-<head>
-    <title>
-        <%= title %>
-    </title>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'sha256-WOdSzz11/3cpqOdrm89LBL2UPwEU9EhbDtMy2OciEhs='">
-    <script src="javascripts/jquery/jquery.min.js"></script>
-    <script src="javascripts/datatable/datatable.min.js"></script>
-    <script src="javascripts/uiheader.js"></script>
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script script-src-elem="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    <link href="stylesheet/datatable/datatable.min.css" rel="stylesheet">
-</head>
-
-<body>
-    <div class="valign-wrapper container">
-        <div class="row">
-            <div class="col card s12">
-                <div class="row">
-                    <table id="datatable">
-                        <thead>
-                            <tr>
-                                <th>Class ID</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                                <th>Scheduled Time</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%jobs.map(job => {%>
+        <link href="stylesheet/datatable/datatable.min.css" rel="stylesheet">
+        <link href="stylesheet/dashboard.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <header>
+            <%- include('../components/banner.ejs') %>
+        </header>
+        <main>
+            <div class="row table-box">
+                <%- include('../components/headers.ejs') %>
+                <div class="col s10 push-s1">
+                    <div class="row">
+                        <table id="datatable" class="cell-border mdl-data-table">
+                            <thead class="table-header">
                                 <tr>
-                                    <td>
-                                        <%=job.class_id%>
-                                    </td>
-                                    <td>
-                                        <%=job.created_at%>
-                                    </td>
-                                    <td>
-                                        <%=job.updated_at%>
-                                    </td>
-                                    <td>
-                                        <%=job.scheduled_time%>
-                                    </td>
-                                    <td>
-                                        <%=job.status%>
-                                    </td>
+                                    <th>Class Name</th>
+                                    <th>Instructor</th>
+                                    <th>Time</th>
+                                    <th>Members</th>
+                                    <th>Message</th>
                                 </tr>
-                                <%})%>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            <%jobs.map(job => {%>
+                            <tr class="table-body-row">
+                                <td>
+                                    <div class="col s2">
+                                        <a>
+                                            <img src="/images/userInterface/editPen.svg">
+                                        </a>
+                                    </div>
+                                    <div class="col s10"><%=job.class_name%></div>
+                                </td>
+                                <td><%=job.instructor_first_name%> <%=job.instructor_last_name%></td>
+                                <td><%=job.scheduled_time%></td>
+                                <td><a>View email list</a></td>
+                                <td>
+                                    <div class="col s10">N/A</div>
+                                    <div class="col s2">
+                                        <a>
+                                            <img src="/images/userInterface/trashCan.svg">
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <%})%>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</body>
-
+        </main>
+    </body>
 </html>
