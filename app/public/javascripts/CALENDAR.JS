@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     newEventList.push(event);
                 }
-                var calendar = new FullCalendar.Calendar(calendarEl, {
+                const calendar = new FullCalendar.Calendar(calendarEl, {
                     initialView: 'timeGridWeek',
                     headerToolbar: {
                         left: 'prev,next today',
