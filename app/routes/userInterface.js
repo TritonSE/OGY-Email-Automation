@@ -13,4 +13,9 @@ router.get('/calendar', async function(req, res, next) {
     res.render('userInterface/calendar');
 });
 
+router.get('/getCalendar', async function(req, res, next){
+    const jobs = await jobsModel.getAll();
+    res.send(jobs);
+});
+
 module.exports = router;
