@@ -7,9 +7,6 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <style>
-            .inline {
-                display: inline-block !important;
-            }
 
             #notif-modal {
                 width: 529px;
@@ -52,6 +49,10 @@
             #notif-modal .modal-content .input-field {
                 margin-top: 0;
             }
+
+            #notif-modal .modal-content .dropdown-content li>span {
+                color: #f89920;
+            }
             
             #notif-modal .modal-content select, #notif-modal .modal-content textarea {
                 border: 1px solid #000000;
@@ -60,6 +61,7 @@
 
             #notif-modal .modal-content textarea:focus {
                 box-shadow: none;
+                border: 1px solid #f89920
             }
 
             #notif-modal .modal-content .materialize-textarea {
@@ -71,6 +73,24 @@
                 color: #000000;
                 text-decoration: underline;
                 cursor: pointer;
+            }
+
+            #notif-modal .modal-content label {
+                color: #000000;
+            }
+
+            #notif-modal .modal-content input[type="text"] {
+                border-bottom: 1px solid #000000;
+            }
+
+            #notif-modal .modal-content input[type="text"]:focus {
+                box-shadow: none;
+                border-bottom: 1px solid #f89920;
+            }
+
+            #notif-modal .modal-content input[type="checkbox"].filled-in:checked+span:not(.lever):after {
+                border: 2px solid #f89920;
+                background-color: #f89920;
             }
 
             #notif-modal .modal-footer {
@@ -124,10 +144,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s6">
+                        <div class="input-field col s12">
                             <i class="material-icons prefix">access_time</i>
-                            <input id="start-time" type="text" placeholder="Start">
-                            <input id="end-time" type="text" placeholder="End">
+                            <input type="text" class="timepicker" placeholder="Start">
+                            <input type="text" class="timepicker" placeholder="End">
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">repeat</i>
@@ -153,8 +173,8 @@
                         </div>
                         <div class="input-field col s5">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="checked" />
-                                <span>Pause notification?</span>
+                                <input type="checkbox" class="filled-in checkbox-orange" checked="checked" />
+                                <span>Pause notifications?</span>
                             </label>
                         </div>
                     </div>
