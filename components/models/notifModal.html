@@ -9,7 +9,6 @@
         <style>
 
             #notif-modal {
-                width: 529px;
                 border-radius: 5px;
             }
 
@@ -38,7 +37,7 @@
                 margin: 5px;
             }
 
-            #notif-modal .modal-content {
+            #notif-modal #content {
                 padding: 16px 32px 0px;
             }
 
@@ -65,8 +64,12 @@
             }
 
             #notif-modal .modal-content .materialize-textarea {
-                min-height: 210px;
                 padding: 15px;
+                margin-bottom: 0;
+            }
+
+            #notif-modal .modal-content #message {
+                min-height: 210px;
             }
 
             #notif-modal .modal-content a {
@@ -118,6 +121,38 @@
                 background-color: #cbcb2b;
                 float: right;
             }
+
+            .timepicker-digital-display {
+                background-color: #f89920;
+            }
+
+            .timepicker-canvas-bg, .timepicker-canvas-bearing {
+                fill: #f89920;
+            }
+
+            .timepicker-canvas line {
+                stroke: #f89920;
+            }
+
+            .timepicker-close {
+                color: #f89920;
+            }
+
+            .datepicker-date-display {
+                background-color: #f89920;
+            }
+
+            .datepicker-cancel, .datepicker-done {
+                color: #f89920;
+            }
+
+            .datepicker-table td.is-today {
+                color: #f89920;
+            }
+
+            .datepicker-table td.is-selected {
+                background-color: #f89821;
+            }
         </style>
     </head>
     
@@ -131,7 +166,7 @@
                 <p>Edit Notification</p>
                 <a href="#" class="modal-close btn-flat">X</a>
             </div>
-            <div class="modal-content">
+            <div id="content" class="modal-content">
                 <form class="col s12">
                     <div class="row">
                         <div class="input-field col s12">
@@ -144,7 +179,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s12">
+                        <div class="input-field col s6">
                             <i class="material-icons prefix">access_time</i>
                             <input type="text" class="timepicker" placeholder="Start">
                             <input type="text" class="timepicker" placeholder="End">
@@ -172,10 +207,19 @@
                             <label for="reminder">Send a reminder</label>
                         </div>
                         <div class="input-field col s5">
-                            <label>
+                            <label id="filter">
                                 <input type="checkbox" class="filled-in checkbox-orange" checked="checked" />
                                 <span>Pause notifications?</span>
                             </label>
+                        </div>
+                    </div>
+                    <div class="row toggle">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">notifications_paused</i>
+                            <label for="start-date">Notification pausd from</label>
+                            <input type="text" id="start-date" class="datepicker" placeholder="Start">
+                            <label for="end-date">to</label>
+                            <input type="text" id="end-date" class="datepicker" placeholder="End">
                         </div>
                     </div>
                     <div class="row">
@@ -185,9 +229,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <select class="browser-default">
-                                <option value="" disabled selected>Choose a subject line or start typing...</option>
-                            </select>
+                            <textarea id="subject" class="materialize-textarea" placeholder="Enter a subject line..."></textarea>
                         </div>
                     </div>
                     <div class="row">
@@ -207,6 +249,11 @@
                 $('.modal').modal();
                 $('.timepicker').timepicker();
                 $('select').formSelect();
+                $('#filter').click(function() {
+                    var checked = $('.checkbox-orange').is(':checked');
+                    $('.toggle').toggle();
+                });
+                $('.datepicker').datepicker({minDate: new Date()});
             });
         </script>
     </body>
