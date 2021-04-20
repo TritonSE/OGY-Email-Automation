@@ -179,9 +179,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s6">
+                        <div class="input-field col s3">
                             <i class="material-icons prefix">access_time</i>
                             <input type="text" class="timepicker" placeholder="Start">
+                        </div>
+                        <div class="input-field col s3">
                             <input type="text" class="timepicker" placeholder="End">
                         </div>
                         <div class="input-field col s6">
@@ -216,9 +218,10 @@
                     <div class="row toggle">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">notifications_paused</i>
-                            <label for="start-date">Notification pausd from</label>
+                            <label for="start-date">Notification paused</label>
                             <input type="text" id="start-date" class="datepicker" placeholder="Start">
-                            <label for="end-date">to</label>
+                        </div>
+                        <div class="input-field col s6">
                             <input type="text" id="end-date" class="datepicker" placeholder="End">
                         </div>
                     </div>
@@ -249,10 +252,6 @@
                 $('.modal').modal();
                 $('.timepicker').timepicker();
                 $('select').formSelect();
-                $('#filter').click(function() {
-                    var checked = $('.checkbox-orange').is(':checked');
-                    $('.toggle').toggle();
-                });
                 $('.datepicker').datepicker({minDate: new Date()});
             });
         </script>
