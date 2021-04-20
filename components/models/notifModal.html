@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html> 
     <head>
-        <script src="../../app/public/javascripts/jquery/jquery.min.js"></script>
+        <script src="javascripts/jquery/jquery.min.js"></script>
+        <script src="../../app/public/javascripts/uiheader.js"></script>
+        <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <script src="../../app/public/javascripts/materializejs/materialize.min.js"></script>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+        <!-- Compiled and minified JavaScript -->
+        <script src="javascripts/materializejs/materialize.min.js"></script>
         <link href="../../app/public/stylesheet/notifModal.css" rel="stylesheet">
     </head>
     
@@ -100,13 +101,5 @@
                 <a href="#" id="add-btn" class="modal-close waves-effect waves-green btn-flat">Add</a>
             </div>
         </div>
-        <script>
-            $(document).ready(function() {
-                $('.modal').modal();
-                $('.timepicker').timepicker();
-                $('select').formSelect();
-                $('.datepicker').datepicker({minDate: new Date()});
-            });
-        </script>
     </body>
 </html>
