@@ -7,14 +7,14 @@
         </div>
         <div class="close-div">
             <a href="#!" class="modal-action modal-close waves-effect lighten-1">
-                <img src="../../images/X.svg" style="width: 14px;">
+                <img src="images/X.svg" style="width: 14px;">
             </a>
         </div>
     </div>
     <table id="modal-table" class="main-table">
         <tr>
             <td class="td-clock-img">
-                <img src="../../images/clock.svg" style="width: 21px;">
+                <img src="images/clock.svg" style="width: 21px;">
             </td>
             <td class="td-time">
                 <%=job.scheduled_time%>
@@ -22,7 +22,7 @@
         </tr>
         <tr>
             <td class="td-attendee-img">
-                <img src="../../images/people_icon.svg" style="width: 22px;">
+                <img src="images/people_icon.svg" style="width: 22px;">
             </td>
             <td class="td-attendees">
                 <%=job.clients.length%> Attendees
@@ -41,7 +41,7 @@
                             <%=client.email%>
                         </td>
                         <td class="td-notif-image">
-                            <img src="../../images/<%=client.is_recipient==true ? '' : 'no_' %>notification.svg" style="width: 20px; text-align: right;">
+                            <img src="images/<%=client.is_recipient==true ? '' : 'no_' %>notification.svg" style="width: 20px; text-align: right;">
                         </td> 
                     </tr>
                 </table>
