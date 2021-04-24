@@ -13,7 +13,8 @@
         <script src="javascripts/materializejs/materialize.min.js"></script>
         <link href="stylesheet/datatable/datatable.min.css" rel="stylesheet">
         <link href="stylesheet/dashboard.css" rel="stylesheet" type="text/css">
-        <link href="../../stylesheet/clientsModal.css" rel="stylesheet">
+        <link href="stylesheet/clientsModal.css" rel="stylesheet">
+        <link href="stylesheet/notifModal.css" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -39,7 +40,7 @@
                             <tr class="table-body-row">
                                 <td>
                                     <div class="col s2">
-                                        <a>
+                                        <a href="#notif-modal" class="modal-trigger">
                                             <img src="/images/userInterface/editPen.svg">
                                         </a>
                                     </div>
@@ -57,6 +58,7 @@
                                     </div>
                                 </td>
                             </tr>
+                            <%- include('../components/notifModal.ejs', {job}) %>
                             <%})%>
                             </tbody>
                         </table>
