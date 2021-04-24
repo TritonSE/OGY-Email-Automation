@@ -1,8 +1,8 @@
 <div id="notif-modal" class="modal">
     <div class="modal-header">
         <p>Edit Notification</p>
-        <a href="#" class="modal-close btn-flat">
-            <i class="material-icons">close</i> 
+        <a href="#" class="modal-close">
+            <img class="center" src="/images/notifModal/close.svg" alt="Close"> 
         </a>
     </div>
     <div id="content" class="modal-content">
@@ -18,15 +18,19 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s3">
-                    <i class="material-icons prefix">access_time</i>
+                <div class="col s1">
+                    <img class="center" src="/images/notifModal/access_time.svg" alt="Clock">
+                </div>
+                <div class="input-field col s2">
                     <input type="text" class="timepicker" placeholder="Start">
                 </div>
                 <div class="input-field col s2">
                     <input type="text" class="timepicker" placeholder="End">
                 </div>
-                <div class="input-field col s7">
-                    <i class="material-icons prefix">repeat</i>
+                <div class="col s1">
+                    <img class="center" src="/images/notifModal/refresh.svg">
+                </div>
+                <div class="input-field col s6">
                     <select>
                         <option value="0" selected>Does not repeat</option>
                         <option value="1">Every month</option>
@@ -38,8 +42,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s7">
-                    <i class="material-icons prefix">notifications</i>
+                <div class="col s1">
+                    <img class="center" src="/images/notifModal/notifications.svg" alt="Notifications">
+                </div>
+                <div class="input-field col s6">
                     <select id="reminder">
                         <option value="0" selected>15 min. before</option>
                         <option value="1">30 min. before</option>
@@ -55,8 +61,10 @@
                 </div>
             </div>
             <div class="row toggle">
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">notifications_paused</i>
+                <div class="col s1">
+                    <img class="center" src="/images/notifModal/notifications_paused.svg" alt="Notifications Paused">
+                </div>
+                <div class="input-field col s5">
                     <label for="start-date">Notification paused</label>
                     <input type="text" id="start-date" class="datepicker" placeholder="Start">
                 </div>
@@ -65,8 +73,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s12">
-                    <a><i class="material-icons left">people</i>View a full email list</a>
+                <div class="col s1">
+                    <img src="/images/notifModal/people.svg" alt="People">
+                </div>
+                <div class="input-field col s11">
+                    <a>View a full email list</a>
                 </div>
             </div>
             <div class="row">
