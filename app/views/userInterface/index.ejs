@@ -11,9 +11,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <!-- Compiled and minified JavaScript -->
         <script src="javascripts/materializejs/materialize.min.js"></script>
-
         <link href="stylesheet/datatable/datatable.min.css" rel="stylesheet">
         <link href="stylesheet/dashboard.css" rel="stylesheet" type="text/css">
+        <link href="stylesheet/clientsModal.css" rel="stylesheet">
         <link href="stylesheet/notifModal.css" rel="stylesheet">
     </head>
     <body>
@@ -36,7 +36,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <%jobs.map(job => {%>
+                            <%jobs.map((job, index) => {%>
                             <tr class="table-body-row">
                                 <td>
                                     <div class="col s2">
@@ -48,7 +48,7 @@
                                 </td>
                                 <td><%=job.instructor_first_name%> <%=job.instructor_last_name%></td>
                                 <td><%=job.scheduled_time%></td>
-                                <td><a>View email list</a></td>
+                                <td><a class="modal-trigger" href="#clients-modal<%=index%>">View email list</a></td>
                                 <td>
                                     <div class="col s10">N/A</div>
                                     <div class="col s2">
@@ -58,10 +58,13 @@
                                     </div>
                                 </td>
                             </tr>
-                            <%- include('../../../components/models/notifModal.ejs', {job}) %>
+                            <%- include('../components/notifModal.ejs', {job}) %>
                             <%})%>
                             </tbody>
                         </table>
+                        <%jobs.map((job, index) => {%>
+                            <%- include('../components/clients.ejs', {job, index}) %>
+                        <%})%>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,52 @@
+<div id="clients-modal<%=index%>" class="modal center" style="width: 40%;">
+    <div class="header">
+        <div class="title">
+            <h4 class="title-text">
+                Attendees for <%=job.class_name%>
+            </h4>
+        </div>
+        <div class="close-div">
+            <a href="#!" class="modal-action modal-close waves-effect lighten-1">
+                <img src="images/X.svg" style="width: 14px;">
+            </a>
+        </div>
+    </div>
+    <table id="modal-table" class="main-table">
+        <tr>
+            <td class="td-clock-img">
+                <img src="images/clock.svg" style="width: 21px;">
+            </td>
+            <td class="td-time">
+                <%=job.scheduled_time%>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-attendee-img">
+                <img src="images/people_icon.svg" style="width: 22px;">
+            </td>
+            <td class="td-attendees">
+                <%=job.clients.length%> Attendees
+            </td>
+        </tr>
+        <%job.clients.map((client, ind) => {%>
+        <tr>
+            <td class="td-number">
+                <%=ind + 1%>.
+            </td>
+            <td class="td-attendee-content">
+                <table style="border-collapse: initial;">
+                    <tr>
+                        <td class="td-attendee-info">
+                            <%=client.first_name%> <%=client.last_name%></br>
+                            <%=client.email%>
+                        </td>
+                        <td class="td-notif-image">
+                            <img src="images/<%=client.is_recipient==true ? '' : 'no_' %>notification.svg" style="width: 20px; text-align: right;">
+                        </td> 
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <%})%>
+    </table>
+</div>
