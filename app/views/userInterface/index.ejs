@@ -14,6 +14,32 @@
 
         <link href="stylesheet/datatable/datatable.min.css" rel="stylesheet">
         <link href="stylesheet/dashboard.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="stylesheet/deleteModal.css" rel="stylesheet">
+
+        <style>
+ 
+                [type="radio"]:checked + span:after,
+                 
+                [type="radio"].with-gap:checked + span:before,
+                 
+                [type="radio"].with-gap:checked + span:after {
+                 
+                  border: 2px solid black;
+                 
+                }
+                 
+                 
+                 
+                [type="radio"]:checked + span:after,
+                 
+                [type="radio"].with-gap:checked + span:after {
+                 
+                  background-color: black;
+                 
+                }
+                 
+                </style>
     </head>
     <body>
         <header>
@@ -51,12 +77,15 @@
                                 <td>
                                     <div class="col s10">N/A</div>
                                     <div class="col s2">
-                                        <a>
-                                            <img src="/images/userInterface/trashCan.svg">
+                                        <a href="#delete-modal" class = "modal-trigger">
+                                            
+                                                <img src="/images/userInterface/trashCan.svg">
                                         </a>
+                                        
                                     </div>
                                 </td>
                             </tr>
+                            <%- include('../../../components/models/deleteModal.ejs', {job}) %>
                             <%})%>
                             </tbody>
                         </table>
