@@ -41,8 +41,8 @@
                             <%=client.email%>
                         </td>
                         <td class="td-notif-image">
-                            <img src="images/<%=client.is_recipient==true ? '' : 'no_' %>notification.svg" style="width: 20px; text-align: right;">
-                        </td> 
+                           <button onclick="toggleNotification(<%=client.id%>, <%=job.id%>, <%=client.is_recipient%>)"><img id="notification_bell" src="images/<%=client.is_recipient==true ? '' : 'no_' %>notification.svg" style="width: 20px; text-align: right;"></button>
+                        </td>
                     </tr>
                 </table>
             </td>

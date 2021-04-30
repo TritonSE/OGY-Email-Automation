@@ -58,12 +58,12 @@
                                     </div>
                                 </td>
                             </tr>
-                            <%- include('../components/notifModal.ejs', {job}) %>
+                            <%- include('../components/modals/notifModal.ejs', {job}) %>
                             <%})%>
                             </tbody>
                         </table>
                         <%jobs.map((job, index) => {%>
-                            <%- include('../components/clients.ejs', {job, index}) %>
+                            <%- include('../components/modals/clients.ejs', {job, index}) %>
                         <%})%>
                     </div>
                 </div>
