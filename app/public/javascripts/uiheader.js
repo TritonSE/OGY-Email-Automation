@@ -25,4 +25,18 @@ $(document).ready(function() {
 $(document).ready(function(){
     $('select').formSelect();
     $('.modal').modal();
+    $('.timepicker').timepicker();
+    $('.datepicker').datepicker({minDate: new Date()});
 });
+
+function toggleNotification(client_id, job_id, is_recipient){
+    $.ajax({
+        url: `/clients/${client_id}`,
+        type: 'PUT',
+        data: {job_id, is_recipient:!is_recipient},
+        success: function(data) {
+            const image = document.getElementById('notification_bell');
+            image.src = !is_recipient ? 'notification.svg' : 'no_notification.svg';
+        }
+    });
+}
