@@ -1,4 +1,4 @@
-<div id="notif-modal" class="modal">
+<div id="notif-modal<%=index%>" class="modal notif-modal">
     <div class="modal-header">
         <p>Edit Notification</p>
         <a href="#" class="modal-close">
@@ -9,12 +9,12 @@
         <form class="col s12">
             <div class="row">
                 <div class="input-field col s12">
-                    <input type="text" placeholder="Class Name">
+                    <input type="text" placeholder="Class Name" value="<%=job.class_name%>">
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input type="text" placeholder="Instructor">
+                    <input type="text" placeholder="Instructor" value="<%=job.instructor_first_name%> <%=job.instructor_last_name%>">
                 </div>
             </div>
             <div class="row">
@@ -77,7 +77,7 @@
                     <img src="/images/notifModal/people.svg" alt="People">
                 </div>
                 <div class="input-field col s11">
-                    <a class="modal-trigger" href="#clients-modal">View a full email list</a>
+                    <a class="modal-trigger" href="#clients-modal<%=index%>">View a full email list</a> // TODO: link to client modal
                 </div>
             </div>
             <div class="row">
