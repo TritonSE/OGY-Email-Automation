@@ -1,3 +1,4 @@
+const { client } = require('../database/dbConfig.js');
 const db = require('../database/dbConfig.js');
 
 /**
@@ -41,7 +42,31 @@ async function getEmailByJoinJobs(jobId) {
     }
 }
 
+/**
+ * Toggles client's notifications given their id.
+ * 
+ * @param {*} clientId id of the client
+ * @returns {boolean} Whether the client's notifications are on or off.
+ */
+async function toggleClientNotification(clientId){
+    try {
+        const clients = await db('clients')
+                .select('*')
+                .where({id : clientId});
+        const client = clients[0];
+        await db('clients')
+            .where({id: clientId})
+            .update({ 
+                is_recipient : !client.is_recipient
+            });
+        return !client.is_recipient;
+    } catch(e){
+        console.error("Error: Failed to toggle notifications for client.", e)
+    }
+}
+
 module.exports = {
     getEmailByJoinJobs,
     getClientsByJob,
+    toggleClientNotification
 }
