@@ -1,7 +1,6 @@
 const db = require('../database/dbConfig.js');
-
 const clientProcessing = require('../../utils/clientProcessing.js');
-
+const clientsModel = require('./clientsModel');
 const convert = require('../../utils/convert');
 
 /**
@@ -117,14 +116,18 @@ async function get(filter){
 }
 
 /**
- * get all jobs
+ * Get all scheduled jobs
+ * 
  * @returns {Promise<*>}
  */
 async function getAll(){
     try {
         const result = await db('jobs')
             .select('*');
-        const jobs = await Promise.all(result.map(job => {return ({...job, scheduled_time:convert(job.scheduled_time)})}));
+        const jobs = await Promise.all(result.map(async function(job) {
+            job.clients = await clientsModel.getClientsByJob(job.id);
+            return ({...job, scheduled_time:convert(job.scheduled_time)});
+        }));
         return jobs;
     } catch(e){
         console.error("Error: failed to retrieve jobs", e);
