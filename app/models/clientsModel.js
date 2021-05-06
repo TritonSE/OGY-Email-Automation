@@ -62,7 +62,6 @@ async function getClientById(clientId){
  * Toggles client's notifications given their id.
  * 
  * @param {*} clientId Id of the client
- * @returns {boolean} Whether the client's notifications are on or off.
  */
 async function toggleIsRecipient(clientId){
     try {
