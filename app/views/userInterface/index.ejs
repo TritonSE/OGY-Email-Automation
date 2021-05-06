@@ -13,6 +13,7 @@
         <script src="javascripts/materializejs/materialize.min.js"></script>
         <link href="stylesheet/datatable/datatable.min.css" rel="stylesheet">
         <link href="stylesheet/dashboard.css" rel="stylesheet" type="text/css">
+        <link href="stylesheet/deleteModal.css" rel="stylesheet">
         <link href="stylesheet/clientsModal.css" rel="stylesheet">
         <link href="stylesheet/notifModal.css" rel="stylesheet">
     </head>
@@ -52,12 +53,15 @@
                                 <td>
                                     <div class="col s10">N/A</div>
                                     <div class="col s2">
-                                        <a>
-                                            <img src="/images/userInterface/trashCan.svg">
+                                        <a href="#delete-modal" class = "modal-trigger">
+                                            
+                                                <img src="/images/userInterface/trashCan.svg">
                                         </a>
+                                        
                                     </div>
                                 </td>
                             </tr>
+                            <%- include('../../../components/models/deleteModal.ejs', {job}) %>
                             <%- include('../components/modals/notifModal.ejs', {job}) %>
                             <%})%>
                             </tbody>
