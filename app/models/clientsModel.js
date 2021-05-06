@@ -42,23 +42,35 @@ async function getEmailByJoinJobs(jobId) {
 }
 
 /**
+ * Retrieves the client with the specific id.
+ * 
+ * @param {*} clientId Id of the client
+ * @returns {Promise<void>}
+ */
+async function getClientById(clientId){
+    try {
+        client = await db('clients')
+            .select('*')
+            .where({id: clientId});
+        return client[0];
+    } catch (e) {
+        console.error("Error: Failed to retrieve client by id.");
+    }
+}
+
+/**
  * Toggles client's notifications given their id.
  * 
- * @param {*} clientId id of the client
+ * @param {*} clientId Id of the client
  * @returns {boolean} Whether the client's notifications are on or off.
  */
-async function toggleClientNotification(clientId){
+async function toggleIsRecipient(clientId){
     try {
-        const clients = await db('clients')
-                .select('*')
-                .where({id : clientId});
-        const client = clients[0];
         await db('clients')
             .where({id: clientId})
             .update({ 
-                is_recipient : !client.is_recipient
+                is_recipient : db.raw('NOT ??',  ['is_recipient'])
             });
-        return !client.is_recipient;
     } catch(e){
         console.error("Error: Failed to toggle notifications for client.", e)
     }
@@ -67,5 +79,6 @@ async function toggleClientNotification(clientId){
 module.exports = {
     getEmailByJoinJobs,
     getClientsByJob,
-    toggleClientNotification
+    getClientById,
+    toggleIsRecipient
 }

@@ -4,8 +4,9 @@ const clientsModel = require('../models/clientsModel');
 
 router.put('/toggle_notif/:id', async function(req, res){
     try {
-        updated_notif_status = await clientsModel.toggleClientNotification(req.params.id);
-        return res.status(200).json({is_recipient : updated_notif_status});
+        await clientsModel.toggleIsRecipient(req.params.id);
+        const client = await clientsModel.getClientById(req.params.id);
+        return res.status(200).json({is_recipient : client.is_recipient});
     } catch(err) {
         return res.status(400);
     }
