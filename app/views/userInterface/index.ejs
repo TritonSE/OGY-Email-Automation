@@ -61,21 +61,13 @@
                                     </div>
                                 </td>
                             </tr>
-<<<<<<< HEAD
-=======
                             <%- include('../../../components/models/deleteModal.ejs', {job}) %>
                             <%- include('../components/modals/notifModal.ejs', {job}) %>
->>>>>>> e6f48f0e55b32a9bb520c12f13703435559dec1c
                             <%})%>
                             </tbody>
                         </table>
                         <%jobs.map((job, index) => {%>
-<<<<<<< HEAD
-                            <%- include('../components/notifModal.ejs', {job, index}) %>
-                            <%- include('../components/clients.ejs', {job, index}) %>
-=======
                             <%- include('../components/modals/clients.ejs', {job, index}) %>
->>>>>>> e6f48f0e55b32a9bb520c12f13703435559dec1c
                         <%})%>
                     </div>
                 </div>
