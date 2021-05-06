@@ -22,10 +22,10 @@
                     <img class="center" src="/images/notifModal/access_time.svg" alt="Clock">
                 </div>
                 <div class="input-field col s2">
-                    <input type="text" class="timepicker" placeholder="Start">
+                    <input type="text" class="timepicker start-time" placeholder="Start">
                 </div>
                 <div class="input-field col s2">
-                    <input type="text" class="timepicker" placeholder="End">
+                    <input id="end-time" type="text" class="timepicker" placeholder="End">
                 </div>
                 <div class="col s1">
                     <img class="center" src="/images/notifModal/refresh.svg">
@@ -82,7 +82,7 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea id="subject" class="materialize-textarea" placeholder="Enter a subject line..."></textarea>
+                    <textarea id="subject" class="materialize-textarea" placeholder="Enter a subject line...">Reminder for <%=job.class_name%> with <%=job.instructor_first_name%> <%=job.instructor_last_name%> on </textarea>
                 </div>
             </div>
             <div class="row">
