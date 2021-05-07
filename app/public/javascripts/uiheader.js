@@ -27,6 +27,10 @@ $(document).ready(function(){
     $('.modal').modal();
     $('.timepicker').timepicker();
     $('.datepicker').datepicker({minDate: new Date()});
+    $('.modal-close waves-effect waves-green btn-flat').click(function(){
+        const job_id = $(this).attr('id').split("_")[1];
+        deleteNotification(job_id);
+    });
 });
 
 function toggleNotification(client_id, job_id, is_recipient){
@@ -37,6 +41,17 @@ function toggleNotification(client_id, job_id, is_recipient){
         success: function(data) {
             const image = document.getElementById('notification_bell');
             image.src = !is_recipient ? 'notification.svg' : 'no_notification.svg';
+        }
+    });
+}
+
+function deleteNotification(job_id){
+    $.ajax({
+        url:`/userInterface/deleteNotification/${job_id}`,
+        type: 'PUT',
+        data:{},
+        sucess: function(data){
+
         }
     });
 }

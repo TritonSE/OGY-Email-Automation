@@ -18,4 +18,13 @@ router.get('/getCalendar', async function(req, res, next){
     res.send(jobs);
 });
 
+router.put('/deleteNotification/:id', async function(req,res){
+    try{
+        await jobsModel.deleteJob(req.params.id);
+    }
+    catch(e){
+        return res.status(400);
+    }
+});
+
 module.exports = router;

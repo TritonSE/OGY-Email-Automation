@@ -154,12 +154,29 @@ async function getByMinutesFromNow(mins){
         console.error("Error: failed to dequeue jobs", e);
     }
 }
-
+/**
+ * Deletes a certain job given its ID
+ * 
+ * @param job_id 
+ */
+async function deleteJob(job_id){
+    try{
+        await db('jobs')
+            .where('job_id', job_id)
+            .update({
+                status: 'DELETED'
+            })
+    }
+    catch(e){
+        console.error("Error: failed to delete job", e);
+    }
+}
 
 module.exports = {
     insert,
     update,
     get,
     getByMinutesFromNow,
-    getAll
+    getAll,
+    deleteJob
 };
