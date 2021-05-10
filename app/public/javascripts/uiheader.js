@@ -25,10 +25,6 @@ $(document).ready(function() {
 $(document).ready(function(){
     $('select').formSelect();
     $('.modal').modal();
-    const startTime = '<%-job.scheduled_time%>';
-    const endTime = '<%-job.class_end_time%>';
-    $('.start-time').val(startTime);
-    $('.end-time').val(endTime);
     $('.timepicker').timepicker();
     $('.datepicker').datepicker({minDate: new Date()});
 });
