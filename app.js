@@ -1,6 +1,7 @@
 const http = require('http');
 const app = require('./app/index');
 const automation = require('./scripts/index');
+const emailScript = require('./scripts/handler');
 
 const debug = require('debug')('OG_Yoga:server');
 const server = http.createServer(app);
@@ -17,6 +18,7 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 automation.startScript();
+emailScript.scheduleEmail();
 
 /**
  * Event listener for HTTP server "error" event.
