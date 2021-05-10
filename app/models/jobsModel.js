@@ -127,12 +127,12 @@ async function getAll(){
 }
 /**
  * Returns a list of jobs of the classes that need to be
- * dequeued within a specfic time frame.
+ * dequeued within a specific time frame.
  *
  * @param minMinutes lower bound of minutes after present time that is included in range
  * @param maxMinutes upper bound of minutes after present time that is included in range
  */
-async function getByMinutesFromNow(minMinutes, maxMinutes){
+async function getByMinutesInRange(minMinutes, maxMinutes){
     try{
         const minDate = new Date();
         const maxDate = new Date(minDate);
@@ -151,25 +151,18 @@ async function getByMinutesFromNow(minMinutes, maxMinutes){
 }
 
 /**
- * Updates the job's status depending on if reminder emails
- * were successfully sent or not.
+ * Updates a job given its id.
  * 
  * @param {*} jobId Id of the job to update.
- * @param {*} isSuccess boolean of whether emails were successfully sent.
+ * @param {*} updates json of the updates to be made to the job.
  */
-async function updateJobStatus(jobId, isSuccess){
+async function updateById(jobId, updates){
     try {
-        if (isSuccess){
-            await db('jobs')
-                .where({id : jobId})
-                .update({status : "SUCCESS"});
-        } else {
-            await db('jobs')
-                .where({id : jobId})
-                .update({status : "FAIL"});
-        }
+        await db('jobs')
+            .where({id : jobId})
+            .update(updates);
     } catch(e){
-        console.error("Error: Failed to update the status of the job.");
+        console.error("Error: Failed to update the job by id.", e);
     }
 }
 
@@ -178,7 +171,7 @@ module.exports = {
     insert,
     update,
     get,
-    getByMinutesFromNow,
+    getByMinutesInRange,
     getAll,
-    updateJobStatus
+    updateById
 };

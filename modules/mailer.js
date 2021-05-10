@@ -37,11 +37,11 @@ async function sendReminders(classInfo, clientEmails){
                 html: data
             }, async function(err, data){
                 if (err) {
-                    jobsModel.updateJobStatus(classInfo.id, false);
+                    jobsModel.updateById(classInfo.id, {status: "FAIL"});
                     console.error(err, "Email failed");
                 }
                 else {
-                    jobsModel.updateJobStatus(classInfo.id, true);
+                    jobsModel.updateById(classInfo.id, {status: "SUCCESS"});
                     console.log("Email sent");
                 }
             });

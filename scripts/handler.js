@@ -13,7 +13,7 @@ const mailer = require('../modules/mailer.js');
  */
 async function scheduleEmail() {
     schedule.scheduleJob('*/15 * * * *', async function() {
-        const classes = await jobsModel.getByMinutesFromNow(15, 30);
+        const classes = await jobsModel.getByMinutesInRange(15, 30);
         classes.forEach(async function(classInfo) {
             const emails = await clientsModel.getEmailByJoinJobs(classInfo.id);
             mailer.sendReminders(classInfo, emails);
