@@ -7,6 +7,10 @@
     margin-top: 10px;
 }
 
+.notif-modal img.vert-center {
+    margin-top: 12px;
+}
+
 .notif-modal .modal-header {
     height: 49px;
     background-color: #212225;
@@ -35,39 +39,24 @@
     padding: 16px 32px 0px;
 }
 
+.notif-modal .input-field {
+    margin-top: 0;
+}
+
 .notif-modal .modal-content .row {
     margin-bottom: 0;
 }
 
-.notif-modal .modal-content .input-field {
+.notif-modal .modal-content .s6 {
     margin-top: 0;
+}
+
+.notif-modal .modal-content .s4 {
+    margin-top: 13px;
 }
 
 .notif-modal .s1 {
     text-align: center;
-}
-
-.notif-modal .modal-content .dropdown-content li>span {
-    color: #f89920;
-}
-
-.notif-modal .modal-content select, .notif-modal .modal-content textarea {
-    border: 1px solid #000000;
-    border-radius: 5px;
-}
-
-.notif-modal .modal-content textarea:focus {
-    box-shadow: none;
-    border: 1px solid #f89920
-}
-
-.notif-modal .modal-content .materialize-textarea {
-    padding: 15px;
-    margin-bottom: 0;
-}
-
-.notif-modal .modal-content #message {
-    min-height: 210px;
 }
 
 .notif-modal .modal-content a {
@@ -80,7 +69,7 @@
     color: #000000;
 }
 
-.notif-modal .modal-content input[type="text"] {
+.notif-modal .modal-content input {
     border-bottom: 1px solid #000000;
 }
 
@@ -89,16 +78,16 @@
     border-bottom: 1px solid #f89920;
 }
 
-.notif-modal .modal-content input[type="checkbox"].filled-in:checked+span:not(.lever):after {
-    border: 2px solid #f89920;
-    background-color: #f89920;
+.notif-modal .modal-content input[type="datetime-local"]:focus {
+    box-shadow: none;
+    border-bottom: 1px solid #f89920;
 }
 
 .notif-modal .modal-footer {
-    padding: 0px 42px;
+    padding-bottom: 64px;
 }
 
-.notif-modal .modal-footer a {
+.notif-modal .modal-footer button {
     font-weight: 700;
     font-style: normal;
     font-size: 16px;
@@ -113,41 +102,9 @@
     float: left;
 }
 
-.notif-modal .modal-footer #add-btn {
+.notif-modal .modal-footer #submit-btn {
     color: #000000;
     border-radius: 30px;
     background-color: #cbcb2b;
     float: right;
-}
-
-.timepicker-digital-display {
-    background-color: #f89920;
-}
-
-.timepicker-canvas-bg, .timepicker-canvas-bearing {
-    fill: #f89920;
-}
-
-.timepicker-canvas line {
-    stroke: #f89920;
-}
-
-.timepicker-close {
-    color: #f89920;
-}
-
-.datepicker-date-display {
-    background-color: #f89920;
-}
-
-.datepicker-cancel, .datepicker-done {
-    color: #f89920;
-}
-
-.datepicker-table td.is-today {
-    color: #f89920;
-}
-
-.datepicker-table td.is-selected {
-    background-color: #f89821;
 }
