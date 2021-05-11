@@ -17,20 +17,21 @@
     <script src="/javascripts/materializejs/materialize.min.js"></script>
     <link href="/stylesheet/datatable/datatable.min.css" rel="stylesheet">
     <link href="/stylesheet/dashboard.css" rel="stylesheet" type="text/css">
+    <link href="/stylesheet/calendar.css" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <%- include('../components/banner.ejs') %>  
+        <%- include('../components/banner.ejs') %>
     </header>
     <main>
-            <div class = "row table-box">
-                <%- include('../components/headers.ejs') %>
-            </div>
-            
-            <div id='calendar'></div>
+        <div class="row table-box">
+            <%- include('../components/headers.ejs') %>
+        </div>
+
+        <div id='calendar'></div>
     </main>
-    
+
 </body>
 
 </html>
