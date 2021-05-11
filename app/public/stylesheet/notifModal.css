@@ -1,18 +1,22 @@
-#notif-modal {
+.notif-modal {
     border-radius: 5px;
 }
 
-#notif-modal img.center {
+.notif-modal img.center {
     width: 24px;
     margin-top: 10px;
 }
 
-#notif-modal .modal-header {
+.notif-modal img.vert-center {
+    margin-top: 12px;
+}
+
+.notif-modal .modal-header {
     height: 49px;
     background-color: #212225;
 }
 
-#notif-modal .modal-header p {
+.notif-modal .modal-header p {
     font-weight: 700;
     font-style: normal;
     font-size: 16px;
@@ -22,7 +26,7 @@
     text-align: center;
 }
 
-#notif-modal .modal-header a {
+.notif-modal .modal-header a {
     font-weight: 700;
     font-size: 14px;
     color: #ffffff;
@@ -31,74 +35,59 @@
     right: 34px;
 }
 
-#notif-modal #content {
+.notif-modal #content {
     padding: 16px 32px 0px;
 }
 
-#notif-modal .modal-content .row {
-    margin-bottom: 0;
-}
-
-#notif-modal .modal-content .input-field {
+.notif-modal .input-field {
     margin-top: 0;
 }
 
-#notif-modal .s1 {
-    text-align: center;
-}
-
-#notif-modal .modal-content .dropdown-content li>span {
-    color: #f89920;
-}
-
-#notif-modal .modal-content select, #notif-modal .modal-content textarea {
-    border: 1px solid #000000;
-    border-radius: 5px;
-}
-
-#notif-modal .modal-content textarea:focus {
-    box-shadow: none;
-    border: 1px solid #f89920
-}
-
-#notif-modal .modal-content .materialize-textarea {
-    padding: 15px;
+.notif-modal .modal-content .row {
     margin-bottom: 0;
 }
 
-#notif-modal .modal-content #message {
-    min-height: 210px;
+.notif-modal .modal-content .s6 {
+    margin-top: 0;
 }
 
-#notif-modal .modal-content a {
+.notif-modal .modal-content .s4 {
+    margin-top: 13px;
+}
+
+.notif-modal .s1 {
+    text-align: center;
+}
+
+.notif-modal .modal-content a {
     color: #000000;
     text-decoration: underline;
     cursor: pointer;
 }
 
-#notif-modal .modal-content label {
+.notif-modal .modal-content label {
     color: #000000;
 }
 
-#notif-modal .modal-content input[type="text"] {
+.notif-modal .modal-content input {
     border-bottom: 1px solid #000000;
 }
 
-#notif-modal .modal-content input[type="text"]:focus {
+.notif-modal .modal-content input[type="text"]:focus {
     box-shadow: none;
     border-bottom: 1px solid #f89920;
 }
 
-#notif-modal .modal-content input[type="checkbox"].filled-in:checked+span:not(.lever):after {
-    border: 2px solid #f89920;
-    background-color: #f89920;
+.notif-modal .modal-content input[type="datetime-local"]:focus {
+    box-shadow: none;
+    border-bottom: 1px solid #f89920;
 }
 
-#notif-modal .modal-footer {
-    padding: 0px 32px 18px;
+.notif-modal .modal-footer {
+    padding-bottom: 64px;
 }
 
-#notif-modal .modal-footer a {
+.notif-modal .modal-footer button {
     font-weight: 700;
     font-style: normal;
     font-size: 16px;
@@ -106,48 +95,16 @@
     text-align: center;
 }
 
-#notif-modal .modal-footer #cancel-btn {
+.notif-modal .modal-footer #cancel-btn {
     color: #ff0000;
     border-radius: 30px;
     border: 1px solid #ff0000;
     float: left;
 }
 
-#notif-modal .modal-footer #add-btn {
+.notif-modal .modal-footer #submit-btn {
     color: #000000;
     border-radius: 30px;
     background-color: #cbcb2b;
     float: right;
-}
-
-.timepicker-digital-display {
-    background-color: #f89920;
-}
-
-.timepicker-canvas-bg, .timepicker-canvas-bearing {
-    fill: #f89920;
-}
-
-.timepicker-canvas line {
-    stroke: #f89920;
-}
-
-.timepicker-close {
-    color: #f89920;
-}
-
-.datepicker-date-display {
-    background-color: #f89920;
-}
-
-.datepicker-cancel, .datepicker-done {
-    color: #f89920;
-}
-
-.datepicker-table td.is-today {
-    color: #f89920;
-}
-
-.datepicker-table td.is-selected {
-    background-color: #f89821;
 }

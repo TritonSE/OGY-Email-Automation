@@ -25,8 +25,6 @@ $(document).ready(function() {
 $(document).ready(function(){
     $('select').formSelect();
     $('.modal').modal();
-    $('.timepicker').timepicker();
-    $('.datepicker').datepicker({minDate: new Date()});
     $('.notif_button').click(function(){
         const client_id = $(this).attr('id').split("_")[2];
         toggleNotification(client_id); 
