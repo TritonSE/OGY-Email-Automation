@@ -9,12 +9,12 @@
         <form class="col s12">
             <div class="row">
                 <div class="input-field col s12">
-                    <input type="text" placeholder="Class Name" value="<%=job.class_name%>">
+                    <input type="text" name="class_name" placeholder="Class Name" value="<%=job.class_name%>">
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input type="text" placeholder="Instructor" value="<%=job.instructor_first_name%> <%=job.instructor_last_name%>">
+                    <input type="text" name="instructor_name" placeholder="Instructor" value="<%=job.instructor_first_name%> <%=job.instructor_last_name%>">
                 </div>
             </div>
             <div class="row">
@@ -22,7 +22,7 @@
                     <img class="center" src="/images/notifModal/access_time.svg" alt="Clock">
                 </div>
                 <div class="input-field col s6">
-                    <input type="datetime-local" class="datetime-local" value="<%=job.scheduled_time.split(',')[0] + 'T' + job.scheduled_time.split(' ')[1]%>">
+                    <input type="datetime-local" name="scheduled-time" value="<%=job.scheduled_time.split(',')[0] + 'T' + job.scheduled_time.split(' ')[1]%>">
                 </div>
                 <div class="col s1">
                     <img class="vert-center" src="/images/notifModal/people.svg" alt="People">
