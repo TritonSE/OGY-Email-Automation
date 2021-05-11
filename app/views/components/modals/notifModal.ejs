@@ -6,7 +6,7 @@
         </a>
     </div>
     <div id="content" class="modal-content">
-        <form class="col s12">
+        <form class="col s12" action="/jobs/<%=job.id%>" method="POST">
             <div class="row">
                 <div class="input-field col s12">
                     <input type="text" name="class_name" placeholder="Class Name" value="<%=job.class_name%>">
