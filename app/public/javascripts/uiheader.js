@@ -24,4 +24,21 @@ $(document).ready(function() {
 
 $(document).ready(function(){
     $('select').formSelect();
+    $('.modal').modal();
+    $('.notif_button').click(function(){
+        const client_id = $(this).attr('id').split("_")[2];
+        toggleNotification(client_id); 
+    });
 });
+
+function toggleNotification(client_id){
+    $.ajax({
+        url: `/clients/toggle_notif/${client_id}`,
+        type: 'PUT',
+        data: {},
+        success: function(data) {
+            const image = document.getElementById('notification_bell_' + client_id);
+            image.src = 'images/' + (data.is_recipient ? 'notification.svg' : 'no_notification.svg');
+        }
+    });
+}

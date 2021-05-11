@@ -4,16 +4,18 @@
         <title><%= title %></title>
         <meta charset="utf-8">
         <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'sha256-WOdSzz11/3cpqOdrm89LBL2UPwEU9EhbDtMy2OciEhs='">
-        <script src="javascripts/jquery/jquery.min.js"></script>
-        <script src="javascripts/datatable/datatable.min.js"></script>
-        <script src="javascripts/uiheader.js"></script>
+        <script src="/javascripts/jquery/jquery.min.js"></script>
+        <script src="/javascripts/datatable/datatable.min.js"></script>
+        <script src="/javascripts/uiheader.js"></script>
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <!-- Compiled and minified JavaScript -->
         <script src="javascripts/materializejs/materialize.min.js"></script>
-
         <link href="stylesheet/datatable/datatable.min.css" rel="stylesheet">
         <link href="stylesheet/dashboard.css" rel="stylesheet" type="text/css">
+        <link href="stylesheet/deleteModal.css" rel="stylesheet">
+        <link href="stylesheet/clientsModal.css" rel="stylesheet">
+        <link href="stylesheet/notifModal.css" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -35,11 +37,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <%jobs.map(job => {%>
+                            <%jobs.map((job, index) => {%>
                             <tr class="table-body-row">
                                 <td>
                                     <div class="col s2">
-                                        <a>
+                                        <a href="#notif-modal<%=index%>" class="modal-trigger">
                                             <img src="/images/userInterface/editPen.svg">
                                         </a>
                                     </div>
@@ -47,19 +49,26 @@
                                 </td>
                                 <td><%=job.instructor_first_name%> <%=job.instructor_last_name%></td>
                                 <td><%=job.scheduled_time%></td>
-                                <td><a>View email list</a></td>
+                                <td><a class="modal-trigger" href="#clients-modal<%=index%>">View email list</a></td>
                                 <td>
                                     <div class="col s10">N/A</div>
                                     <div class="col s2">
-                                        <a>
-                                            <img src="/images/userInterface/trashCan.svg">
+                                        <a href="#delete-modal" class = "modal-trigger">
+                                            
+                                                <img src="/images/userInterface/trashCan.svg">
                                         </a>
+                                        
                                     </div>
                                 </td>
                             </tr>
+                            <%- include('../../../components/models/deleteModal.ejs', {job}) %>
                             <%})%>
                             </tbody>
                         </table>
+                        <%jobs.map((job, index) => {%>
+                            <%- include('../components/modals/notifModal.ejs', {job, index}) %>
+                            <%- include('../components/modals/clients.ejs', {job, index}) %>
+                        <%})%>
                     </div>
                 </div>
             </div>

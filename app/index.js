@@ -8,9 +8,13 @@ const helmet = require('helmet');
 const cors = require('cors');
 const logger = require('morgan');
 
+const verifyToken = require('./middleware/verifyToken');
+
 
 const indexRouter = require('./routes/index');
 const userInterfaceRouter = require('./routes/userInterface');
+const jobsRouter = require('./routes/jobs');
+const clientsRouter = require('./routes/clients');
 
 const server = express();
 
@@ -30,7 +34,9 @@ server.use(cookieParser());
 server.use(express.static(path.join(__dirname, 'public')));
 
 server.use('/', indexRouter);
-server.use('/userInterface', userInterfaceRouter);
+server.use('/userInterface', verifyToken, userInterfaceRouter);
+server.use('/jobs', verifyToken, jobsRouter);
+server.use('/clients', verifyToken, clientsRouter);
 
 server.use(function(req, res, next) {
     next(createError(404));
