@@ -11,11 +11,12 @@ const mailer = require('../modules/mailer.js');
  * send the email to all clients of each class using the 
  * mailer script.
  */
-async function scheduleEmail() {
+function scheduleEmail() {
     schedule.scheduleJob('*/15 * * * *', async function() {
         const classes = await jobsModel.getByMinutesInRange(15, 30);
         classes.forEach(async function(classInfo) {
             const emails = await clientsModel.getEmailByJoinJobs(classInfo.id);
+            classInfo = {...classInfo, scheduled_time:(new Date(classInfo.scheduled_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}))}
             mailer.sendReminders(classInfo, emails);
         });
     });
