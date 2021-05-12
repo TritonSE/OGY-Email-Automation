@@ -64,7 +64,6 @@ async function update(job, jobId, clientEdits){
                 scheduled_time : job.scheduled_time,
                 class_end_time : job.class_end_time,
                 status : job.status,
-                class_name : job.class_name,
                 instructor_first_name : job.instructor_first_name,
                 instructor_last_name : job.instructor_last_name
             }
