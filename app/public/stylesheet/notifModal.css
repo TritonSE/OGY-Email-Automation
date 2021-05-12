@@ -7,10 +7,6 @@
     margin-top: 10px;
 }
 
-.notif-modal img.vert-center {
-    margin-top: 12px;
-}
-
 .notif-modal .modal-header {
     height: 49px;
     background-color: #212225;
@@ -47,18 +43,6 @@
     margin-bottom: 0;
 }
 
-.notif-modal .modal-content .s6 {
-    margin-top: 0;
-}
-
-.notif-modal .modal-content .s4 {
-    margin-top: 13px;
-}
-
-.notif-modal .s1 {
-    text-align: center;
-}
-
 .notif-modal .modal-content a {
     color: #000000;
     text-decoration: underline;
@@ -74,11 +58,6 @@
 }
 
 .notif-modal .modal-content input[type="text"]:focus {
-    box-shadow: none;
-    border-bottom: 1px solid #f89920;
-}
-
-.notif-modal .modal-content input[type="datetime-local"]:focus {
     box-shadow: none;
     border-bottom: 1px solid #f89920;
 }

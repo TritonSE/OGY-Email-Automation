@@ -13,24 +13,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s6">
-                    <input type="text" name="instructor_first_name" placeholder="Instructor's First Name" value="<%=job.instructor_first_name%>">
-                </div>
-                <div class="input-field col s6">
-                    <input type="text" name="instructor_last_name" placeholder="Instructor's Last Name" value="<%=job.instructor_last_name%>">
-                </div>
-            </div>
-            <div class="row">
                 <div class="col s1">
-                    <img class="center" src="/images/notifModal/access_time.svg" alt="Clock">
+                    <img src="/images/notifModal/people.svg" alt="People">
                 </div>
-                <div class="input-field col s6">
-                    <input type="datetime-local" name="scheduled_time" value="<%=job.scheduled_time.split(',')[0] + 'T' + job.scheduled_time.split(' ')[1]%>">
-                </div>
-                <div class="col s1">
-                    <img class="vert-center" src="/images/notifModal/people.svg" alt="People">
-                </div>
-                <div class="input-field col s4">
+                <div class="input-field col s11">
                     <a class="modal-trigger" href="#clients-modal<%=index%>">View a full email list</a>
                 </div>
             </div>
