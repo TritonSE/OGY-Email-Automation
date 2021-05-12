@@ -9,7 +9,8 @@
         <form class="col s12" action="/jobs/<%=job.id%>" method="POST">
             <div class="row">
                 <div class="input-field col s12">
-                    <input type="text" name="class_name" placeholder="Class Name" value="<%=job.class_name%>">
+                    <input id="class_name" type="text" name="class_name" value="<%=job.class_name%>">
+                    <label for="class_name">Class Name</label>
                 </div>
             </div>
             <div class="row">

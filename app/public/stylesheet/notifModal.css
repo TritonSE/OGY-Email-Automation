@@ -35,22 +35,18 @@
     padding: 16px 32px 0px;
 }
 
-.notif-modal .input-field {
-    margin-top: 0;
-}
-
 .notif-modal .modal-content .row {
     margin-bottom: 0;
+}
+
+.notif-modal .modal-content .s11 {
+    margin-top: 0;
 }
 
 .notif-modal .modal-content a {
     color: #000000;
     text-decoration: underline;
     cursor: pointer;
-}
-
-.notif-modal .modal-content label {
-    color: #000000;
 }
 
 .notif-modal .modal-content input {
@@ -60,6 +56,10 @@
 .notif-modal .modal-content input[type="text"]:focus {
     box-shadow: none;
     border-bottom: 1px solid #f89920;
+}
+
+.notif-modal .modal-content .input-field input[type=text]:focus + label {
+    color: #f89920;
 }
 
 .notif-modal .modal-footer {
