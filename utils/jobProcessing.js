@@ -14,7 +14,6 @@ async function isJobUpdated(apiJob, storedJob, clientDiff){
         return false;
     
     return new Date(storedJob.scheduled_time).getTime() === new Date(apiJob.scheduled_time).getTime() &&
-        storedJob.class_name === apiJob.class_name &&
         storedJob.instructor_first_name === apiJob.instructor_first_name &&
         storedJob.instructor_last_name === apiJob.instructor_last_name &&
         new Date(storedJob.class_end_time).getTime() === new Date(apiJob.class_end_time).getTime();
