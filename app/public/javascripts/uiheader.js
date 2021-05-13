@@ -30,11 +30,12 @@ $(document).ready(function(){
     $('.modal-close waves-effect waves-green btn-flat').click(function(){
         const job_id = $(this).attr('id').split("_")[1];
         deleteNotification(job_id);
+    });
     $('.notif_button').click(function(){
         const client_id = $(this).attr('id').split("_")[2];
         toggleNotification(client_id); 
     });
-});
+})
 
 function toggleNotification(client_id){
     $.ajax({
