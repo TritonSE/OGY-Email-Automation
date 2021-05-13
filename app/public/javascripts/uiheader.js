@@ -30,17 +30,20 @@ $(document).ready(function(){
     $('.modal-close waves-effect waves-green btn-flat').click(function(){
         const job_id = $(this).attr('id').split("_")[1];
         deleteNotification(job_id);
+    $('.notif_button').click(function(){
+        const client_id = $(this).attr('id').split("_")[2];
+        toggleNotification(client_id); 
     });
 });
 
-function toggleNotification(client_id, job_id, is_recipient){
+function toggleNotification(client_id){
     $.ajax({
-        url: `/clients/${client_id}`,
+        url: `/clients/toggle_notif/${client_id}`,
         type: 'PUT',
-        data: {job_id, is_recipient:!is_recipient},
+        data: {},
         success: function(data) {
-            const image = document.getElementById('notification_bell');
-            image.src = !is_recipient ? 'notification.svg' : 'no_notification.svg';
+            const image = document.getElementById('notification_bell_' + client_id);
+            image.src = 'images/' + (data.is_recipient ? 'notification.svg' : 'no_notification.svg');
         }
     });
 }

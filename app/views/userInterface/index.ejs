@@ -4,9 +4,9 @@
         <title><%= title %></title>
         <meta charset="utf-8">
         <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'sha256-WOdSzz11/3cpqOdrm89LBL2UPwEU9EhbDtMy2OciEhs='">
-        <script src="javascripts/jquery/jquery.min.js"></script>
-        <script src="javascripts/datatable/datatable.min.js"></script>
-        <script src="javascripts/uiheader.js"></script>
+        <script src="/javascripts/jquery/jquery.min.js"></script>
+        <script src="/javascripts/datatable/datatable.min.js"></script>
+        <script src="/javascripts/uiheader.js"></script>
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <!-- Compiled and minified JavaScript -->
@@ -41,7 +41,7 @@
                             <tr class="table-body-row">
                                 <td>
                                     <div class="col s2">
-                                        <a href="#notif-modal" class="modal-trigger">
+                                        <a href="#notif-modal<%=index%>" class="modal-trigger">
                                             <img src="/images/userInterface/editPen.svg">
                                         </a>
                                     </div>
@@ -61,12 +61,12 @@
                                     </div>
                                 </td>
                             </tr>
-                            <%- include('../components/modals/deleteModal.ejs', {job}) %>
-                            <%- include('../components/modals/notifModal.ejs', {job}) %>
+                            <%- include('../../../components/models/deleteModal.ejs', {job}) %>
                             <%})%>
                             </tbody>
                         </table>
                         <%jobs.map((job, index) => {%>
+                            <%- include('../components/modals/notifModal.ejs', {job, index}) %>
                             <%- include('../components/modals/clients.ejs', {job, index}) %>
                         <%})%>
                     </div>

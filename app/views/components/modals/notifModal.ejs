@@ -1,4 +1,4 @@
-<div id="notif-modal" class="modal">
+<div id="notif-modal<%=index%>" class="modal notif-modal">
     <div class="modal-header">
         <p>Edit Notification</p>
         <a href="#" class="modal-close">
@@ -6,70 +6,11 @@
         </a>
     </div>
     <div id="content" class="modal-content">
-        <form class="col s12">
+        <form class="col s12" action="/jobs/<%=job.id%>" method="POST">
             <div class="row">
                 <div class="input-field col s12">
-                    <input type="text" placeholder="Class Name">
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input type="text" placeholder="Instructor">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s1">
-                    <img class="center" src="/images/notifModal/access_time.svg" alt="Clock">
-                </div>
-                <div class="input-field col s2">
-                    <input type="text" class="timepicker" placeholder="Start">
-                </div>
-                <div class="input-field col s2">
-                    <input type="text" class="timepicker" placeholder="End">
-                </div>
-                <div class="col s1">
-                    <img class="center" src="/images/notifModal/refresh.svg">
-                </div>
-                <div class="input-field col s6">
-                    <select>
-                        <option value="0" selected>Does not repeat</option>
-                        <option value="1">Every month</option>
-                        <option value="2">Every week</option>
-                        <option value="3">Every day</option>
-                        <option value="4">Every M, W, F</option>
-                        <option value="5">Every Tu, Th</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s1">
-                    <img class="center" src="/images/notifModal/notifications.svg" alt="Notifications">
-                </div>
-                <div class="input-field col s6">
-                    <select id="reminder">
-                        <option value="0" selected>15 min. before</option>
-                        <option value="1">30 min. before</option>
-                        <option value="2">1 hr. before</option>
-                    </select>
-                    <label for="reminder">Send a reminder</label>
-                </div>
-                <div class="input-field col s5">
-                    <label id="filter">
-                        <input type="checkbox" class="filled-in checkbox-orange" checked="checked" />
-                        <span>Pause notifications?</span>
-                    </label>
-                </div>
-            </div>
-            <div class="row toggle">
-                <div class="col s1">
-                    <img class="center" src="/images/notifModal/notifications_paused.svg" alt="Notifications Paused">
-                </div>
-                <div class="input-field col s5">
-                    <label for="start-date">Notification paused</label>
-                    <input type="text" id="start-date" class="datepicker" placeholder="Start">
-                </div>
-                <div class="input-field col s5">
-                    <input type="text" id="end-date" class="datepicker" placeholder="End">
+                    <input id="class_name" type="text" name="class_name" value="<%=job.class_name%>">
+                    <label for="class_name">Class Name</label>
                 </div>
             </div>
             <div class="row">
@@ -77,23 +18,18 @@
                     <img src="/images/notifModal/people.svg" alt="People">
                 </div>
                 <div class="input-field col s11">
-                    <a>View a full email list</a>
+                    <a class="modal-trigger" href="#clients-modal<%=index%>">View a full email list</a>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea id="subject" class="materialize-textarea" placeholder="Enter a subject line..."></textarea>
+                    <textarea id="message" name="message" class="materialize-textarea" placeholder="Enter notification content here..."></textarea>
                 </div>
             </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <textarea id="message" class="materialize-textarea" placeholder="Enter notification content here..."></textarea>
-                </div>
+            <div class="modal-footer">
+                <button type="reset" href="#" id="cancel-btn" class="modal-close waves-effect waves-light btn-flat">Cancel</button>
+                <button type="submit" href="#" id="submit-btn" class="modal-close waves-effect waves-green btn-flat">Submit</button>
             </div>
         </form>
-    </div>
-    <div class="modal-footer">
-        <a href="#" id="cancel-btn" class="modal-close waves-effect waves-light btn-flat">Cancel</a>
-        <a href="#" id="add-btn" class="modal-close waves-effect waves-green btn-flat">Add</a>
     </div>
 </div>

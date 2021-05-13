@@ -1,10 +1,9 @@
 const db = require('../database/dbConfig.js');
-const clientProcessing = require('../../utils/clientProcessing.js');
 const clientsModel = require('./clientsModel');
 const convert = require('../../utils/convert');
 
 /**
- * Inserts a job into the database.
+ * Inserts jobs into the database.
  * Adds clients who are attending the class.
  *
  * @param jobs
@@ -25,7 +24,6 @@ async function insert(jobs){
                     class_end_time : job.class_end_time,
                     status : job.status,
                     job_hash : job.job_hash,
-                    class_name : job.class_name,
                     instructor_first_name : job.instructor_first_name,
                     instructor_last_name : job.instructor_last_name
                 };
@@ -51,14 +49,14 @@ async function insert(jobs){
  * Updates scheduled_time for jobs in the database with the same class_id.
  * Adds new clients attending the section and removes clients no longer attending
  *
- * @param filter
- * @param updatedJob
+ * @param job the fields retrieved from the api to update the stored job.
+ * @param jobId id of the job to be updated
+ * @param clientEdits differences in clients between database and api
  * @returns {Promise<void>}
  */
-async function update(filter, job){
+async function update(job, jobId, clientEdits){
     await db.transaction(async function(trx) {
         try {
-            const clients = job.clients;
             const jobEntry = {
                 class_id : job.class_id,
                 class_schedule_id : job.class_schedule_id,
@@ -70,16 +68,9 @@ async function update(filter, job){
                 instructor_last_name : job.instructor_last_name
             }
             await db('jobs')
-                  .where(filter)
+                  .where({id: jobId})
                   .update(jobEntry)
                   .transacting(trx);
-            const jobId = (await get(filter))[0].id;
-            const storedClients = await db('clients')
-                                        .select('email')
-                                        .where('job_id', jobId)
-                                        .transacting(trx);
-            const storedClientsEmails = await Promise.all(storedClients.map(client => client.email));
-            const clientEdits = await clientProcessing.findClientDifference(clients, storedClientsEmails, jobId);
             const addClients = clientEdits[0], removeEmails = clientEdits[1];
             await db('clients')
                 .where('job_id', jobId)
@@ -135,20 +126,23 @@ async function getAll(){
 }
 /**
  * Returns a list of jobs of the classes that need to be
- * dequeued within a specfic time frame
+ * dequeued within a specific time frame.
  *
- * @param time integer specifying time frame
+ * @param minMinutes lower bound of minutes after present time that is included in range
+ * @param maxMinutes upper bound of minutes after present time that is included in range
  */
-async function getByMinutesFromNow(mins){
+async function getByMinutesInRange(minMinutes, maxMinutes){
     try{
-        const presentDate = new Date();
-        presentDate.setMinutes(presentDate.getMinutes() + mins);
+        const minDate = new Date();
+        const maxDate = new Date(minDate);
+        minDate.setMinutes(minDate.getMinutes() + minMinutes);
+        maxDate.setMinutes(maxDate.getMinutes() + maxMinutes);
         const result = await db('jobs')
                                 .where('status', 'SCHEDULED')
-                                .andWhere('scheduled_time', '<', presentDate)
+                                .andWhere('scheduled_time', '>=', minDate)
+                                .andWhere('scheduled_time', '<', maxDate)
                                 .select('*');
         return result;
-
     }
     catch(e) {
         console.error("Error: failed to dequeue jobs", e);
@@ -172,11 +166,29 @@ async function deleteJob(job_id){
     }
 }
 
+/**
+ * Updates a job given its id.
+ * 
+ * @param {*} jobId Id of the job to update.
+ * @param {*} updates json of the updates to be made to the job.
+ */
+async function updateById(jobId, updates){
+    try {
+        await db('jobs')
+            .where({id : jobId})
+            .update(updates);
+    } catch(e){
+        console.error("Error: Failed to update the job by id.", e);
+    }
+}
+
+
 module.exports = {
     insert,
     update,
     get,
-    getByMinutesFromNow,
     getAll,
-    deleteJob
+    deleteJob,
+    getByMinutesInRange,
+    updateById
 };

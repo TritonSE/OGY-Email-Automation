@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const jobsModel = require('../app/models/jobsModel');
 const ejs = require('ejs');
 const path = require('path');
 require('dotenv').config();
@@ -36,9 +37,11 @@ async function sendReminders(classInfo, clientEmails){
                 html: data
             }, async function(err, data){
                 if (err) {
+                    jobsModel.updateById(classInfo.id, {status: "FAIL"});
                     console.error(err, "Email failed");
                 }
                 else {
+                    jobsModel.updateById(classInfo.id, {status: "SUCCESS"});
                     console.log("Email sent");
                 }
             });
