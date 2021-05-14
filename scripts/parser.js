@@ -41,6 +41,9 @@ async function _parseClasses(err,data){
                 instructor_last_name : classJson.Staff.LastName,
                 class_end_time : classJson.EndDateTime
             };
+            const scheduled_time = (new Date(classInfo.scheduled_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}));
+            const class_end_time = (new Date(classInfo.class_end_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}));
+            job.scheduled_message = "Get ready and get pumped for your upcoming " + scheduled_time + " class! It starts at " + scheduled_time + " and ends at " + class_end_time + ". Make sure to join on time and have everything you need to have a successful and worthwhile session. And don't forget to have fun!"
             const clients = await Promise.all(classJson.Clients.map(async function(client){
                 const clientEntry = {
                     first_name : client.FirstName,
