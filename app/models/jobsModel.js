@@ -114,6 +114,7 @@ async function get(filter){
 async function getAll(){
     try {
         const result = await db('jobs')
+            .whereNot('status', 'DELETED')
             .select('*');
         const jobs = await Promise.all(result.map(async function(job) {
             job.clients = await clientsModel.getClientsByJob(job.id);
@@ -159,7 +160,7 @@ async function deleteJob(job_id){
             .where('id', job_id)
             .update({
                 status: 'DELETED'
-            })
+            });
     }
     catch(e){
         console.error("Error: failed to delete job", e);

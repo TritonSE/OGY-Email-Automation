@@ -57,9 +57,9 @@ function deleteNotification(job_id){
     $.ajax({
         url:`/userInterface/deleteNotification/${job_id}`,
         type: 'PUT',
-        data:{},
-        sucess: function(data){
-
+        data: {},
+        success: function(data){
+            window.location.reload();
         }
     });
 }
