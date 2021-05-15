@@ -35,6 +35,10 @@ $(document).ready(function(){
         const client_id = $(this).attr('id').split("_")[2];
         toggleNotification(client_id); 
     });
+    $('.delete_button').click(function(){
+        const client_id = $(this).attr('id').split("_")[1];
+        deleteNotification(client_id);
+    });
 })
 
 function toggleNotification(client_id){

@@ -1,4 +1,4 @@
-#delete-modal .modal-footer a {
+.delete-modal .modal-footer a {
     font-weight: 700;
     font-style: normal;
     font-size: 16px;
@@ -6,23 +6,23 @@
     text-align: center;
 }
 
-#delete-modal .modal-footer #cancel-btn {
+.delete-modal .modal-footer #cancel-btn {
     color: gray;
 }
 
-#delete-modal .modal-footer #delete-btn {
+.delete-modal .modal-footer #delete-btn {
     color: #ffffff;
     border-radius: 30px;
     background-color: #ff0000;
 }
 
-#delete-modal .modal-footer #btn-ctr {
+.delete-modal .modal-footer #btn-ctr {
     float: right;
     display: flex;
     flex-direction: row;
 }
 
-#delete-modal .modal-header {
+.delete-modal .modal-header {
     text-align: center;
     font-size: 16px;
 }
