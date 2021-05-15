@@ -156,7 +156,7 @@ async function getByMinutesInRange(minMinutes, maxMinutes){
 async function deleteJob(job_id){
     try{
         await db('jobs')
-            .where('job_id', job_id)
+            .where('id', job_id)
             .update({
                 status: 'DELETED'
             })
