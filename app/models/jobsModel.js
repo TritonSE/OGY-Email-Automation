@@ -150,23 +150,6 @@ async function getByMinutesInRange(minMinutes, maxMinutes){
         console.error("Error: failed to dequeue jobs", e);
     }
 }
-/**
- * Deletes a certain job given its ID
- * 
- * @param job_id 
- */
-async function deleteJob(job_id){
-    try{
-        await db('jobs')
-            .where('id', job_id)
-            .update({
-                status: 'DELETED'
-            });
-    }
-    catch(e){
-        console.error("Error: failed to delete job", e);
-    }
-}
 
 /**
  * Updates a job given its id.
@@ -190,7 +173,6 @@ module.exports = {
     update,
     get,
     getAll,
-    deleteJob,
     getByMinutesInRange,
     updateById
 };
