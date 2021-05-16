@@ -3,7 +3,8 @@ const status = [
     'SCHEDULED',
     'ON_PROCESS',
     'SUCCESS',
-    'FAIL'
+    'FAIL',
+    'DELETED'
 ];
 
 exports.up = function(knex) {
