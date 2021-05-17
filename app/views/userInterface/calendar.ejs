@@ -23,6 +23,16 @@
 <body>
     <header>
         <%- include('../components/banner.ejs') %>
+
+            <script>
+                document.getElementById('col switch s3 right-align').onchange = function() {
+                    if (this.checked)
+                        window.location.href = "calendar.ejs";
+                    else
+                        window.location.href = "index.ejs";
+                };
+            </script>
+
     </header>
     <main>
         <div class="row table-box">

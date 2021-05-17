@@ -2,7 +2,9 @@ $(document).ready(function() {
     console.log("javascript is running");
     $('#datatable').dataTable({
         "iDisplayLength": 5,
-        "order": [[ 0, "desc" ]],
+        "order": [
+            [0, "desc"]
+        ],
         "oLanguage": {
             "sStripClasses": "",
             "sSearch": "",
@@ -22,6 +24,20 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function(){
+$(document).ready(function() {
     $('select').formSelect();
+
+    $("#viewSwitch").find("input[type=checkbox]").on("change", function() {
+        console.log("WOWWW");
+        var status = $(this).prop('checked');
+        console.log(status);
+
+        if (status) {
+            console.log("hiiii");
+            window.location.href = "/userInterface/calendar";
+        } else {
+            console.log("HIIIII2");
+            window.location.href = "/userInterface";
+        }
+    });
 });
