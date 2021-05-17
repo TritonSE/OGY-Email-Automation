@@ -113,6 +113,7 @@ async function get(filter){
 async function getAll(){
     try {
         const result = await db('jobs')
+            .where('status', 'SCHEDULED')
             .select('*');
         const jobs = await Promise.all(result.map(async function(job) {
             job.clients = await clientsModel.getClientsByJob(job.id);
@@ -170,7 +171,7 @@ module.exports = {
     insert,
     update,
     get,
-    getByMinutesInRange,
     getAll,
+    getByMinutesInRange,
     updateById
 };

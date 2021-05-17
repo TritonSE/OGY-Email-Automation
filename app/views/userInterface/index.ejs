@@ -53,7 +53,7 @@
                                 <td>
                                     <div class="col s10">N/A</div>
                                     <div class="col s2">
-                                        <a href="#delete-modal" class = "modal-trigger">
+                                        <a href="#delete-modal<%=index%>" class = "modal-trigger">
                                             
                                                 <img src="/images/userInterface/trashCan.svg">
                                         </a>
@@ -61,7 +61,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <%- include('../../../components/models/deleteModal.ejs', {job}) %>
+                            <%- include('../components/modals/deleteModal.ejs', {job, index}) %>
                             <%})%>
                             </tbody>
                         </table>

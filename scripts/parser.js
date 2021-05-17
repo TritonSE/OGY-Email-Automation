@@ -22,7 +22,17 @@ async function _parseClasses(err,data){
         const date = new Date();
         date.setMinutes(date.getMinutes() + 15);
         const newJobs = await Promise.all(data.Classes.map(async function(classJson){
-            if ((new Date(classJson.StartDateTime)) < date)
+            const startTime = new Date(classJson.StartDateTime);
+            const endTime = new Date(classJson.EndDateTime);
+            const deleteFilter = {
+                class_id : classJson.Id,
+                class_schedule_id : classJson.ClassScheduleId,
+                status: "DELETED",
+                scheduled_time: startTime,
+                class_end_time: endTime
+            };
+            const deletedJobs = await jobsModel.get(deleteFilter);
+            if ((deletedJobs.length !== 0) || (startTime < date))
                 return;
             // filter for database query
             const filter = {
