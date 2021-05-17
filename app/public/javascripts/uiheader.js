@@ -2,9 +2,7 @@ $(document).ready(function() {
     console.log("javascript is running");
     $('#datatable').dataTable({
         "iDisplayLength": 5,
-        "order": [
-            [0, "desc"]
-        ],
+        "order": [[ 0, "desc" ]],
         "oLanguage": {
             "sStripClasses": "",
             "sSearch": "",
