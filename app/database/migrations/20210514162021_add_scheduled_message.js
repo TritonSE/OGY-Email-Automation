@@ -1,7 +1,7 @@
 
 exports.up = function(knex) {
     return knex.schema.table('jobs', function(table){
-        table.text('scheduled_message')
+        table.text('scheduled_message');
     });
 };
 
