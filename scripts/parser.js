@@ -1,7 +1,10 @@
 const jobsModel = require('../app/models/jobsModel.js');
+const clientsModel = require('../app/models/clientsModel');
 const MBO = require('mindbody-sdk');
 const crypto = require('crypto');
 const getDateByInterval = require('../utils/getDateByInterval');
+const clientProcessing = require('../utils/clientProcessing');
+const jobProcessing = require('../utils/jobProcessing');
 
 const mbo = new MBO({
     ApiKey: process.env.API_KEY, // from portal
@@ -16,15 +19,27 @@ async function _parseClasses(err,data){
     if (err) {
         console.error("Failed to retrieve information about classes", err);
     } else {
+        const date = new Date();
+        date.setMinutes(date.getMinutes() + 15);
         const newJobs = await Promise.all(data.Classes.map(async function(classJson){
-
+            const startTime = new Date(classJson.StartDateTime);
+            const endTime = new Date(classJson.EndDateTime);
+            const deleteFilter = {
+                class_id : classJson.Id,
+                class_schedule_id : classJson.ClassScheduleId,
+                status: "DELETED",
+                scheduled_time: startTime,
+                class_end_time: endTime
+            };
+            const deletedJobs = await jobsModel.get(deleteFilter);
+            if ((deletedJobs.length !== 0) || (startTime < date))
+                return;
             // filter for database query
             const filter = {
                 class_id : classJson.Id,
                 class_schedule_id : classJson.ClassScheduleId,
                 status: "SCHEDULED"
             };
-
             // job json for update or insert
             const job = {
                 class_id : classJson.Id,
@@ -54,14 +69,18 @@ async function _parseClasses(err,data){
                 const dateString = (new Date()).valueOf().toString();
                 const randomString = Math.random().toString();
                 const baseString = dateString + randomString;
-
                 // hash value for the job
                 job.job_hash = crypto.createHash('sha1').update(baseString).digest('hex');
                 return job;
             }
-
-            // if job already exist, update it
-            await jobsModel.update(filter, job);
+            const storedJob = scheduledJobs[0];
+            const storedClients = await clientsModel.getClientsByJob(storedJob.id);
+            const storedClientsEmails = await Promise.all(storedClients.map(client => client.email));
+            const clientDiff = await clientProcessing.findClientDifference(clients, storedClientsEmails, storedJob.id);
+            const isJobUpdated = await jobProcessing.isJobUpdated(job, storedJob, clientDiff);
+            if(!isJobUpdated){
+                await jobsModel.update(job, storedJob.id, clientDiff);
+            }
         }));
 
         // filter out all the undefined in array

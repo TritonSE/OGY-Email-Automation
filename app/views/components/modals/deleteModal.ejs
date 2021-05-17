@@ -1,0 +1,27 @@
+
+<!-- Modal Structure -->
+<div id="delete-modal<%=index%>" class="modal delete-modal">
+    <div class="modal-header">
+        <p>Deleting Notification for Some Class</p>
+    </div>
+    <div class="modal-content">
+            <form action = "#">
+                <p>
+                    <label>
+                      <input class="with-gap" name="notification" type="radio" checked />
+                      <span>Just this notification</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                      <input class="with-gap" name="notification" type="radio"  />
+                      <span>All recurring notifications</span>
+                    </label>
+                </p>
+            </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#" id="cancel-btn" class="modal-close waves-effect waves-light btn-flat">Cancel</a>
+      <a href="#" id="delete-btn_<%=job.id%>" class="delete_button modal-close waves-effect waves-green btn-flat" >Delete</a>
+    </div>
+  </div>

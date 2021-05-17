@@ -13,9 +13,12 @@ const mailer = require('../modules/mailer.js');
  */
 async function scheduleEmail() {
     schedule.scheduleJob('*/15 * * * *', async function() {
-        const classes = await jobsModel.getByMinutesFromNow(30);
+        const classes = await jobsModel.getByMinutesInRange(15, 30);
         classes.forEach(async function(classInfo) {
             const emails = await clientsModel.getEmailByJoinJobs(classInfo.id);
+            classInfo = {...classInfo, 
+                        scheduled_time:(new Date(classInfo.scheduled_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})),
+                        class_end_time:(new Date(classInfo.class_end_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}))};
             mailer.sendReminders(classInfo, emails);
         });
     });
