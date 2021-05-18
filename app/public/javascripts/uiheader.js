@@ -25,18 +25,12 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('select').formSelect();
 
-    $("#viewSwitch").find("input[type=checkbox]").on("change", function() {
-        console.log("WOWWW");
-        var status = $(this).prop('checked');
-        console.log(status);
+    const showingCalendar = window.location.href.includes("calendar");
 
-        if (status) {
-            console.log("hiiii");
-            window.location.href = "/userInterface/calendar";
-        } else {
-            console.log("HIIIII2");
-            window.location.href = "/userInterface";
-        }
+    const calendarCheckbox = $("#viewSwitch").find("input[type=checkbox]");
+    calendarCheckbox.prop('checked', showingCalendar);
+    calendarCheckbox.on("change", function() {
+        window.location.href = showingCalendar ? "/userInterface" : "/userInterface/calendar";
     });
 
     $('.modal').modal();
