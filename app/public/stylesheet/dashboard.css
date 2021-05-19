@@ -65,6 +65,10 @@
     background-color: #FFE8CC !important;
 }
 
+.notif-list-wrapper{
+    margin-top: 1em;
+}
+
 #datatable td {
     font-style: normal;
     font-weight: 300;
