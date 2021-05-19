@@ -24,6 +24,8 @@ async function insert(jobs){
                     class_end_time : job.class_end_time,
                     status : job.status,
                     job_hash : job.job_hash,
+                    class_name : job.class_name,
+                    scheduled_message: job.scheduled_message,
                     instructor_first_name : job.instructor_first_name,
                     instructor_last_name : job.instructor_last_name
                 };
@@ -58,14 +60,11 @@ async function update(job, jobId, clientEdits){
     await db.transaction(async function(trx) {
         try {
             const jobEntry = {
-                class_id : job.class_id,
-                class_schedule_id : job.class_schedule_id,
                 scheduled_time : job.scheduled_time,
                 class_end_time : job.class_end_time,
-                status : job.status,
-                class_name : job.class_name,
                 instructor_first_name : job.instructor_first_name,
-                instructor_last_name : job.instructor_last_name
+                instructor_last_name : job.instructor_last_name,
+                scheduled_message: job.scheduled_message,
             }
             await db('jobs')
                   .where({id: jobId})
