@@ -1,0 +1,12 @@
+version: 2.1
+orbs:
+  heroku: circleci/heroku@1.2.5
+  node: circleci/node@4.2.0
+workflows:
+  deploy:
+    jobs:
+      # Deployment to staging occurs on the main branch
+      - heroku/deploy-via-git:
+          filters:
+            branches:
+              only: main
