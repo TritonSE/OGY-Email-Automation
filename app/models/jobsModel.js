@@ -118,6 +118,7 @@ async function getAll(){
         const jobs = await Promise.all(result.map(async function(job) {
             job.clients = await clientsModel.getClientsByJob(job.id);
             job.formatted_scheduled_time = (new Date(job.scheduled_time)).toLocaleString([], {day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute:'2-digit'});
+            job.iso_scheduled_time = job.scheduled_time;
             return ({...job, scheduled_time:convert(job.scheduled_time)});
         }));
         return jobs;

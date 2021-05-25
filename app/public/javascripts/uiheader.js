@@ -22,8 +22,17 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function(){
+$(document).ready(function() {
     $('select').formSelect();
+
+    const showingCalendar = window.location.href.includes("calendar");
+
+    const calendarCheckbox = $("#viewSwitch").find("input[type=checkbox]");
+    calendarCheckbox.prop('checked', showingCalendar);
+    calendarCheckbox.on("change", function() {
+        window.location.href = showingCalendar ? "/userInterface" : "/userInterface/calendar";
+    });
+
     $('.modal').modal();
     $('.timepicker').timepicker();
     $('.datepicker').datepicker({minDate: new Date()});
@@ -39,7 +48,7 @@ $(document).ready(function(){
         const client_id = $(this).attr('id').split("_")[1];
         deleteNotification(client_id);
     });
-})
+});
 
 function toggleNotification(client_id){
     $.ajax({
