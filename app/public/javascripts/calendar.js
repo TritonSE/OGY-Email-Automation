@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
             url: '/userInterface/getCalendar',
             success: function(result){
                 for(i = 0; i < result.length; i++){
-                    const startTime = new Date(result[i].scheduled_time);
+                    const startTime = luxon.DateTime.fromFormat(result[i].scheduled_time, 'yyyy-MM-dd, HH:mm').toJSDate();
                     const startTimeString = startTime.toISOString();
-                    const endTime = new Date(result[i].class_end_time);
+                    const endTime = luxon.DateTime.fromISO(result[i].class_end_time).toJSDate();
                     const endTimeString = endTime.toISOString();
                     const event = {
                         title: result[i].class_name,
