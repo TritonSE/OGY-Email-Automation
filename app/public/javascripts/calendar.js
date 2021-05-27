@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     dayMaxEvents: true, 
                     events: newEventList,
                     eventColor: '#FFCB8A',
+                    timeZone: 'local'
                 });
                 calendar.render();
             },
