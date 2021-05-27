@@ -29,6 +29,7 @@ async function sendReminders(classInfo, clientEmails){
             console.error(err, "ejs email template failed to render");
         }
         else {
+            console.log("Sending email reminder for class '" + classInfo.class_name + "'.");
             transporter.sendMail({
                 from: '"OG YOGA" ' + process.env.SENDER_EMAIL,
                 to: process.env.SENDER_EMAIL,
