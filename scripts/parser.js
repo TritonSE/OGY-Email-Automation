@@ -2,7 +2,6 @@ const jobsModel = require('../app/models/jobsModel.js');
 const clientsModel = require('../app/models/clientsModel');
 const MBO = require('mindbody-sdk');
 const crypto = require('crypto');
-const getDateByInterval = require('../utils/getDateByInterval');
 const clientProcessing = require('../utils/clientProcessing');
 const jobProcessing = require('../utils/jobProcessing');
 
@@ -95,13 +94,12 @@ async function _parseClasses(err,data){
  * Gets scheduled class information from Mindbody API
  */
 async function getJobsInWeek(){
-
     // set dates for querying range from mindbody api
-    const date = new Date();
-    let StartDateTime = date.toISOString();
-    StartDateTime = StartDateTime.substring(0, StartDateTime.indexOf("."));
-    const EndDateTime = getDateByInterval(7);
-
+    // NOTE: times must be provided in the business owner's timezone without the timezone specified
+    const startDate = DateTime.local().setZone("America/Los_Angeles").startOf('second');
+    const endDate = startDate.plus({ days: 7 }).startOf('second');
+    const StartDateTime = startDate.toISO({ includeOffset: false, suppressMilliseconds: true });
+    const EndDateTime = endDate.toISO({ includeOffset: false, suppressMilliseconds: true });
     await mbo.class.classes({
         StartDateTime,
         EndDateTime
