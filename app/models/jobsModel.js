@@ -1,6 +1,6 @@
 const db = require('../database/dbConfig.js');
 const clientsModel = require('./clientsModel');
-const convert = require('../../utils/convert');
+const { DateTime } = require('luxon');
 
 /**
  * Inserts jobs into the database.
@@ -117,17 +117,9 @@ async function getAll(){
             .select('*');
         const jobs = await Promise.all(result.map(async function(job) {
             job.clients = await clientsModel.getClientsByJob(job.id);
-            job.formatted_scheduled_time = new Date(job.scheduled_time).toLocaleString('en-US', {
-              timeZone: 'America/Los_Angeles',
-              day: '2-digit',
-              month: '2-digit',
-              year: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit'
-            });
-            job.iso_scheduled_time = job.scheduled_time;
+            job.formatted_scheduled_time = DateTime.fromJSDate(job.scheduled_time).setZone('America/Los_Angeles').toLocaleString(DateTime.DATETIME_SHORT);
             job.truncated_scheduled_message = job.scheduled_message.length > 100 ? job.scheduled_message.slice(0, 97) + '...' : job.scheduled_message;
-            return ({...job, scheduled_time:convert(job.scheduled_time)});
+            return job;
         }));
         return jobs;
     } catch(e){
@@ -142,15 +134,14 @@ async function getAll(){
  * @param maxMinutes upper bound of minutes after present time that is included in range
  */
 async function getByMinutesInRange(minMinutes, maxMinutes){
-    try{
-        const minDate = new Date();
-        const maxDate = new Date(minDate);
-        minDate.setMinutes(minDate.getMinutes() + minMinutes);
-        maxDate.setMinutes(maxDate.getMinutes() + maxMinutes);
+    try {
+        const today = DateTime.utc().startOf('second');
+        const minDate = today.plus({ minutes: minMinutes });
+        const maxDate = today.plus({ minutes: maxMinutes });
         const result = await db('jobs')
                                 .where('status', 'SCHEDULED')
-                                .andWhere('scheduled_time', '>=', minDate)
-                                .andWhere('scheduled_time', '<', maxDate)
+                                .andWhere('scheduled_time', '>=', minDate.toSQL({ includeOffset: false }))
+                                .andWhere('scheduled_time', '<', maxDate.toSQL({ includeOffset: false }))
                                 .select('*');
         return result;
     }

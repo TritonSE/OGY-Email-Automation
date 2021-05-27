@@ -21,8 +21,8 @@ async function _parseClasses(err,data){
     } else {
         const today = DateTime.local().plus({ minutes: 15 });
         const newJobs = await Promise.all(data.Classes.map((classJson) => {
-            classJson.StartDateTime = DateTime.fromISO(classJson.StartDateTime, { 'zone': 'America/Los_Angeles'});
-            classJson.EndDateTime = DateTime.fromISO(classJson.EndDateTime, { 'zone': 'America/Los_Angeles'});
+            classJson.StartDateTime = DateTime.fromISO(classJson.StartDateTime, { 'zone': 'America/Los_Angeles'}).toUTC();
+            classJson.EndDateTime = DateTime.fromISO(classJson.EndDateTime, { 'zone': 'America/Los_Angeles'}).toUTC();
             return classJson;
         }).filter(async (classJson) => {
             const deleteFilter = {
@@ -52,8 +52,8 @@ async function _parseClasses(err,data){
                 instructor_last_name : classJson.Staff.LastName,
                 class_end_time : classJson.EndDateTime.toSQL({ includeOffset: false })
             };
-            const scheduled_time = classJson.StartDateTime.toLocaleString(DateTime.TIME_SIMPLE);
-            const class_end_time = classJson.EndDateTime.toLocaleString(DateTime.TIME_SIMPLE);
+            const scheduled_time = classJson.StartDateTime.setZone('America/Los_Angeles').toLocaleString(DateTime.TIME_SIMPLE);
+            const class_end_time = classJson.EndDateTime.setZone('America/Los_Angeles').toLocaleString(DateTime.TIME_SIMPLE);
             job.scheduled_message = "Get ready and get pumped for your upcoming " + job.class_name + " class! It starts at " + scheduled_time + " and ends at " + class_end_time + ". Make sure to join on time and have everything you need to have a successful and worthwhile session. And don't forget to have fun!";
             const clients = await Promise.all(classJson.Clients.map(async function(client){
                 const clientEntry = {

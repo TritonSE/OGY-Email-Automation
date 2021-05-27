@@ -8,7 +8,7 @@ const http = require("http");
  * logics, as well as worker dequeue logic will be used here.
  */
 function startScript() {
-    schedule.scheduleJob('*/1 * * * *', async function () {
+    schedule.scheduleJob('*/15 * * * *', async function () {
         await parser.getJobsInWeek();
     });
     // Used to keep the scheduler alive on Heroku
