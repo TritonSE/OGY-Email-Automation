@@ -13,9 +13,9 @@ function startScript() {
     });
     // Used to keep the scheduler alive on Heroku
     if (process.env.KEEPALIVE_SERVER_IP) {
-      schedule.scheduleJob('*/10 * * * *', async function () {
+      setInterval(function () {
           http.get(process.env.KEEPALIVE_SERVER_IP);
-      });
+      }, 600000);
     }
 }
 
