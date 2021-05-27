@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         left: 'prev,next today',
                         right: 'timeGridWeek,timeGridDay'
                     },
-                    editable: true,
+                    editable: false,
                     dayMaxEvents: true, 
                     events: newEventList,
                     eventColor: '#FFCB8A',
