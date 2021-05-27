@@ -29,6 +29,7 @@
     "http-errors": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.17",
+    "luxon": "^1.27.0",
     "mindbody-sdk": "^1.0.3",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",

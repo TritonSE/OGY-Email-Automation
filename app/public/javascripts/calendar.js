@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
             url: '/userInterface/getCalendar',
             success: function(result){
                 for(i = 0; i < result.length; i++){
-                    const startTime = new Date(result[i].iso_scheduled_time);
+                    const startTime = new Date(result[i].scheduled_time);
                     const startTimeString = startTime.toISOString();
                     const endTime = new Date(result[i].class_end_time);
                     const endTimeString = endTime.toISOString();
