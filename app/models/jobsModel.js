@@ -125,6 +125,11 @@ async function getAll(){
               hour: '2-digit',
               minute: '2-digit'
             });
+            console.log('------');
+            console.log(job.class_name)
+            console.log(job.scheduled_time);
+            console.log(new Date(job.scheduled_time).toLocaleString('en-US', {timeZone: 'America/Los_Angeles'}));
+            console.log(new Date(job.scheduled_time).toLocaleString('en-US', {timeZone: 'America/New_York'}));
             job.iso_scheduled_time = job.scheduled_time;
             job.truncated_scheduled_message = job.scheduled_message.length > 100 ? job.scheduled_message.slice(0, 97) + '...' : job.scheduled_message;
             return ({...job, scheduled_time:convert(job.scheduled_time)});
