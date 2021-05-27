@@ -2,23 +2,10 @@
 <!-- Modal Structure -->
 <div id="delete-modal<%=index%>" class="modal delete-modal">
     <div class="modal-header">
-        <p>Deleting Notification for Some Class</p>
+        <p>Deleting Notification for <%=job.class_name%> (<%=job.formatted_scheduled_time%>)</p>
     </div>
     <div class="modal-content">
-            <form action = "#">
-                <p>
-                    <label>
-                      <input class="with-gap" name="notification" type="radio" checked />
-                      <span>Just this notification</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                      <input class="with-gap" name="notification" type="radio"  />
-                      <span>All recurring notifications</span>
-                    </label>
-                </p>
-            </form>
+        <p>Please note this action is final and cannot be reversed.</p>
     </div>
     <div class="modal-footer">
       <a href="#" id="cancel-btn" class="modal-close waves-effect waves-light btn-flat">Cancel</a>

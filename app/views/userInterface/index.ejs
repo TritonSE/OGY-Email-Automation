@@ -40,19 +40,19 @@
                             <%jobs.map((job, index) => {%>
                             <tr class="table-body-row">
                                 <td>
-                                    <div class="col s2">
+                                    <%=job.class_name%>
+                                </td>
+                                <td><%=job.instructor_first_name%> <%=job.instructor_last_name%></td>
+                                <td><%=job.formatted_scheduled_time%></td>
+                                <td><a class="modal-trigger" href="#clients-modal<%=index%>">View email list</a></td>
+                                <td>
+                                    <div class="col s10"><%=job.truncated_scheduled_message%></div>
+                                    <div class="col s1">
                                         <a href="#notif-modal<%=index%>" class="modal-trigger">
                                             <img src="/images/userInterface/editPen.svg">
                                         </a>
                                     </div>
-                                    <div class="col s10"><%=job.class_name%></div>
-                                </td>
-                                <td><%=job.instructor_first_name%> <%=job.instructor_last_name%></td>
-                                <td><%=job.scheduled_time%></td>
-                                <td><a class="modal-trigger" href="#clients-modal<%=index%>">View email list</a></td>
-                                <td>
-                                    <div class="col s10">N/A</div>
-                                    <div class="col s2">
+                                    <div class="col s1">
                                         <a href="#delete-modal<%=index%>" class = "modal-trigger">
                                             
                                                 <img src="/images/userInterface/trashCan.svg">

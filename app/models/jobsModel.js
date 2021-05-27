@@ -117,8 +117,16 @@ async function getAll(){
             .select('*');
         const jobs = await Promise.all(result.map(async function(job) {
             job.clients = await clientsModel.getClientsByJob(job.id);
-            job.formatted_scheduled_time = (new Date(job.scheduled_time)).toLocaleString([], {day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute:'2-digit'});
+            job.formatted_scheduled_time = new Date(job.scheduled_time).toLocaleString('en-US', {
+              timeZone: 'America/Los_Angeles',
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit'
+            });
             job.iso_scheduled_time = job.scheduled_time;
+            job.truncated_scheduled_message = job.scheduled_message.length > 100 ? job.scheduled_message.slice(0, 97) + '...' : job.scheduled_message;
             return ({...job, scheduled_time:convert(job.scheduled_time)});
         }));
         return jobs;
