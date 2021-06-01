@@ -12,3 +12,10 @@ workflows:
           filters:
             branches:
               only: main
+      # Deployment to production occurs on the prod branch
+      - heroku/deploy-via-git:
+          api-key: PROD_HEROKU_API_KEY
+          app-name: $PROD_HEROKU_APP_NAME
+          filters:
+            branches:
+              only: prod
